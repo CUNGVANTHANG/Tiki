@@ -1,0 +1,113 @@
+.header__search {
+  flex: 1 1 0%;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  position: relative;
+  border: 1px solid rgb(221, 221, 227);
+  border-radius: 8px;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.icon-search {
+  width: 20px;
+  height: 20px;
+  margin: 0px 0px 0px 18px;
+}
+
+.search-input {
+  border: 0px;
+  padding: 0px 8px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  flex: 1 1 0%;
+  outline: none;
+}
+
+.search-btn {
+  cursor: pointer;
+  border: 0px;
+  width: 92px;
+  height: 38px;
+  padding: 4px;
+  border-radius: 0px 8px 8px 0px;
+  background: transparent;
+  color: rgb(10, 104, 255);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  outline: none;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+}
+
+.search-btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-left: 1px solid rgb(221, 221, 227);
+  height: 24px;
+  left: 0px;
+  top: 8px;
+}
+
+.search-btn:hover {
+  background-color: rgba(10, 104, 255, 0.2);
+}
+
+.search-quick {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0px;
+  list-style: none;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0px 0px 3px 3px;
+  border-top: 1px solid rgb(225, 225, 225);
+  box-shadow: rgba(0, 0, 0, 0.28) 0px 6px 12px 0px;
+  width: 100%;
+}
+
+.top-widgets .promo:first-child {
+  border-top: 0px;
+}
+
+.top-widgets .promo {
+  padding: 8px 16px 8px 22px;
+  color: rgb(36, 36, 36);
+  font-size: 13px;
+  line-height: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  border-top: 1px solid rgb(242, 242, 242);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.top-widgets .promo > a {
+  position: absolute;
+  font-size: 0px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.top-widgets .promo > .keyword {
+  flex: 1 1 0%;
+}
+
+.top-widgets .promo > .webpimg-container {
+  height: 28px;
+}

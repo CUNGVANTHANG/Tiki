@@ -1,0 +1,7 @@
+.widgets {
+  width: calc(100% - 254px);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

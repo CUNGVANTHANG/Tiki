@@ -1,0 +1,27 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.ant-layout {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+html {
+  font-size: 14px;
+  background-color: #efefef;
+  line-height: 1.15;
+  text-size-adjust: 100%;
+}
+
+.breakpoint {
+  width: 1280px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media only screen and (min-width: 1440px) {
+  .breakpoint {
+    width: 1440px;
+  }
+}

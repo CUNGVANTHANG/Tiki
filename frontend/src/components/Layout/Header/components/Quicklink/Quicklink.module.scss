@@ -1,0 +1,24 @@
+.header__quicklink-container {
+  display: flex;
+  height: 24px;
+  width: 712px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  overflow: hidden;
+  gap: 12px;
+}
+
+@media only screen and (min-width: 1440px) {
+  .header__quicklink-container {
+    width: 820px;
+  }
+}
+
+.header__quicklink-container a {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: rgb(128, 128, 137);
+  white-space: nowrap;
+}

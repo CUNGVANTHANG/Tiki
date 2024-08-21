@@ -1,0 +1,29 @@
+.header__account {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+}
+
+.header__account img {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  border-radius: 50%;
+}
+
+.header__account span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: rgb(128, 128, 137);
+}
+
+.header__account:hover {
+  background-color: rgba(39, 39, 42, 0.12);
+}
