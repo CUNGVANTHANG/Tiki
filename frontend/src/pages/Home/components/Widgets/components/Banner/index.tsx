@@ -135,7 +135,9 @@ const Banner = () => {
                 .filter(Boolean)}{" "}
             </span>
 
-            <div className={cx("pagination")}></div>
+            <div className={cx("pagination")}>
+              <div className={cx("line")}></div>
+            </div>
           </div>
 
           <span onClick={handleNext} className={cx("icon", "icon-next")}>

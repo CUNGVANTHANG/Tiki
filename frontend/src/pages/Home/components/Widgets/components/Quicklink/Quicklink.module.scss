@@ -27,7 +27,7 @@
   gap: 8px;
 }
 
-.icon {
+.quicklink__icon {
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 35%;
   overflow: hidden;
@@ -43,7 +43,7 @@
   //   -webkit-line-clamp: 2;
   align-self: stretch;
   overflow: hidden;
-  color: var(--Alias-Primary---On-Theme, #27272a);
+  color: #27272a;
   text-align: center;
   text-overflow: ellipsis;
   min-height: 21px;
@@ -52,4 +52,12 @@
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  opacity: 1;
+  object-fit: contain;
+  display: block;
 }

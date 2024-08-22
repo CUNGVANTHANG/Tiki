@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Quicklink.module.scss";
+import React from "react";
 
 const cx = classNames.bind(styles);
 
@@ -70,16 +71,29 @@ const Quicklink = () => {
   return (
     <div className={cx("quicklinks")}>
       <div className={cx("wrapper")}>
-        <div className={cx("quicklink")}>
-          <a href="/">
-            <div className="icon">
-              <picture>
-                <img src="" alt="" />
-              </picture>
+        {quicklinks.map((quicklink, index) => (
+          <React.Fragment key={index}>
+            <div className={cx("quicklink")}>
+              <a href={quicklink.href}>
+                <div className={cx("quicklink__icon")}>
+                  <picture>
+                    <img
+                      className={cx("icon")}
+                      src={quicklink.image}
+                      alt={quicklink.title}
+                    />
+                  </picture>
+                </div>
+                <div
+                  style={index === 0 ? { color: "rgb(217, 56, 67)" } : {}}
+                  className={cx("title")}
+                >
+                  {quicklink.title}
+                </div>
+              </a>
             </div>
-            <div className="title"></div>
-          </a>
-        </div>
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );

@@ -22,6 +22,10 @@ const details = [
     image: "../images/cheap-price.png",
     text: "Giá siêu rẻ",
   },
+  {
+    image: "../images/freeship.png",
+    text: "Freeship mọi đơn",
+  },
 ];
 
 const FreeShipping = () => {

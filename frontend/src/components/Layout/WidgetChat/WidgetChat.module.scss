@@ -1,0 +1,84 @@
+.widget-chat {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px 0px;
+  z-index: 999;
+  border-radius: 12px;
+  background: linear-gradient(0deg, rgb(10, 104, 255), rgb(10, 104, 255)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  bottom: 24px;
+  right: 40px;
+  opacity: 1;
+  visibility: visibl;
+}
+
+@media only screen and (min-width: 1640px) {
+  .widget-chat {
+    right: calc(50% - 784px);
+  }
+}
+
+.assistant {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 16px 6px;
+  min-width: 52px;
+  box-sizing: content-box;
+}
+
+.assistant img {
+  width: 32px;
+  height: 32px;
+}
+
+.assistant div {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-top: 4px;
+}
+
+.divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+}
+
+.chat-platform {
+  cursor: pointer;
+  position: relative;
+  z-index: 999;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px 6px;
+  min-width: 52px;
+  box-sizing: content-box;
+}
+
+.chat-platform img {
+  width: 32px;
+  height: 32px;
+}
+
+.chat-platform div {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-top: 4px;
+}

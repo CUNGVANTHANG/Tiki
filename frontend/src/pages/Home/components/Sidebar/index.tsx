@@ -62,7 +62,7 @@ const category = [
     title: "Bách Hóa Online",
     href: "/bach-hoa-online",
     image:
-      "https://salt.tikicdn.com/cache/100x100/ts/category/55/5b/80/48cbaafe144c25d5065786ecace86d38.png.webp",
+      "https://salt.tikicdn.com/cache/100x100/ts/category/40/0f/9b/62a58fd19f540c70fce804e2a9bb5b2d.png.webp",
   },
   {
     title: "Thể Thao - Dã Ngoại",
