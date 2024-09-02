@@ -1,0 +1,147 @@
+.wrapper {
+  background: rgb(245, 245, 250);
+  border-radius: 8px;
+  padding-top: 0px;
+
+  > .header {
+    display: flex;
+    background: rgb(245, 245, 250);
+    flex-direction: column;
+  }
+}
+
+.header {
+  position: initial;
+  top: 0px;
+  z-index: 997;
+  width: 1138px;
+  transition: all 1s ease 0s;
+  padding-top: 0px;
+  opacity: 1;
+}
+
+.title {
+  color: rgb(39, 39, 42);
+  display: flex;
+  padding: 12px 16px;
+  background-color: white;
+  flex: 1 1 0%;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-transform: unset;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  border-radius: 8px 8px 0px 0px;
+  height: 48px;
+}
+
+.tabs {
+  display: grid;
+  overflow: auto;
+  position: relative;
+  height: 79px;
+  background: white;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 0px;
+  margin-bottom: 8px;
+
+  .tab {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    min-height: 78px;
+    padding: 8px 4px;
+    border-bottom: 1px solid rgb(235, 235, 240);
+
+    > .tab-text {
+      color: rgb(128, 128, 137);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 150%;
+      padding-top: 4px;
+      text-align: center;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      word-break: break-word;
+    }
+
+    img {
+      transition: all 0.4s ease 0s;
+      border-radius: 4px;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  .tab:hover {
+    background: rgba(128, 128, 137, 0.12);
+  }
+
+  .tab.active {
+    background: rgba(0, 96, 255, 0.05);
+    padding: 8px 4px;
+    border-bottom-color: rgb(10, 104, 255);
+
+    > .tab-text {
+      color: rgb(10, 104, 255);
+    }
+  }
+
+  .tab.active:hover {
+    background: rgba(0, 96, 255, 0.12);
+  }
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  background: rgb(245, 245, 250);
+  padding: 0px 0px 16px;
+  border-radius: 0px 0px 4px 4px;
+
+  > .content {
+    display: grid;
+    align-self: stretch;
+    gap: 8px;
+    background-color: rgb(245, 245, 250);
+    border-top: 1px solid rgb(242, 242, 242);
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1441px) {
+  .wrapper > .content {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.view-more {
+  cursor: pointer;
+  display: inline-block;
+  width: 240px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgb(10, 104, 255);
+  color: rgb(10, 104, 255);
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+}
+
+.view-more:hover {
+  background-color: rgba(0, 96, 255, 0.12) !important;
+  opacity: 1 !important;
+  color: rgb(10, 104, 255);
+}

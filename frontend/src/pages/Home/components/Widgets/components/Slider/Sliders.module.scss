@@ -1,0 +1,56 @@
+.sliders {
+  width: 100%;
+  position: relative;
+
+  .icon.disabled {
+    display: none;
+  }
+
+  .icon-prev {
+    left: 8px;
+  }
+
+  .icon-next {
+    right: 8px;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
+    border-radius: 16px;
+    cursor: pointer;
+    z-index: 2;
+    background-color: rgb(255, 255, 255);
+    padding: 6px;
+  }
+
+  .container {
+    overflow: hidden;
+
+    .slider {
+      display: inline-flex;
+      transition: all 0.5s ease-in-out 0s;
+      min-width: 100%;
+    }
+  }
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}
+
+.slider {
+  gap: 8px;
+  transform: translateX(0px);
+  transition: all 0.5s ease-in-out 0s;
+}

@@ -1,0 +1,62 @@
+.wrapper {
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  width: 100%;
+  grid-column: span 2;
+  height: 100%;
+
+  .content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.brand {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+
+  .banner-image {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    object-fit: cover;
+  }
+}
+
+.banner-image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 1;
+}
+
+.see-more {
+  position: absolute;
+  z-index: 1;
+  left: 16px;
+  bottom: 16px;
+  background: rgb(255, 255, 255);
+  color: rgb(10, 104, 255);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  border-radius: 20px;
+  padding: 3px 12px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+
+  img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 8px;
+  }
+}

@@ -5,7 +5,7 @@ import { useState } from "react";
 const cx = classNames.bind(styles);
 
 const Loction = () => {
-  const [address, setAddress] = useState("Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội");
+  const [address, _] = useState("Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội");
   return (
     <div className={cx("header__location")}>
       <div className={cx("wrapper")}>

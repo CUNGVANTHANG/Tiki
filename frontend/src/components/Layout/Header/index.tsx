@@ -6,12 +6,15 @@ import Account from "./components/Account";
 import Cart from "./components/Cart";
 import Quicklink from "./components/Quicklink";
 import Location from "./components/Location";
+import { useLocation } from "react-router-dom";
 
 const { Header } = Layout;
 
 const cx = classNames.bind(styles);
 
 const CustomHeader = () => {
+  const location = useLocation();
+
   return (
     <Header className={cx("header")}>
       <div className="breakpoint">
@@ -30,8 +33,24 @@ const CustomHeader = () => {
               </div>
               <div className={cx("middle__right")}>
                 <div className={cx("header__home")}>
-                  <img src="../images/home.png" alt="Home" />
-                  <a href="/">Trang chủ</a>
+                  <img
+                    src={
+                      location.pathname !== "/"
+                        ? "../images/no-home.png"
+                        : "../images/home.png"
+                    }
+                    alt="Home"
+                  />
+                  {location.pathname !== "/" ? (
+                    <a
+                      style={{ color: "rgb(128, 128, 137)", fontWeight: "400" }}
+                      href="/"
+                    >
+                      Trang chủ
+                    </a>
+                  ) : (
+                    <a href="/">Trang chủ</a>
+                  )}
                 </div>
                 <Account />
                 <Cart />

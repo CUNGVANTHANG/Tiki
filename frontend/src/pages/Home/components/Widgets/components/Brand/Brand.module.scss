@@ -1,0 +1,37 @@
+.wrapper {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0) 22.49%,
+      rgb(255, 255, 255) 73.49%
+    ),
+    linear-gradient(
+      264.03deg,
+      rgb(220, 229, 251) -10.27%,
+      rgb(234, 236, 255) 35.65%,
+      rgb(213, 236, 253) 110.66%
+    );
+
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+  border-radius: 8px;
+  //   background: #fff;
+}
+
+.title {
+  overflow: hidden;
+  color: #27272a;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 8px;
+}

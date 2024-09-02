@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Banner.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -43,25 +43,19 @@ const sliders = [
   },
 ];
 
-const Banner = () => {
+interface BannerProps {
+  banners: any[];
+}
+
+const Banner = ({ banners }: BannerProps) => {
   const [index, setIndex] = useState(0);
 
   const handleNext = () => {
-    setIndex((prevIndex) => {
-      if (prevIndex + 1 >= sliders.length) {
-        return 0;
-      }
-      return prevIndex + 1;
-    });
+    setIndex((index) => index + 1);
   };
 
   const handlePrev = () => {
-    setIndex((prevIndex) => {
-      if (prevIndex - 1 < 0) {
-        return sliders.length - 1;
-      }
-      return prevIndex - 1;
-    });
+    setIndex((index) => index - 1);
   };
 
   return (
@@ -87,52 +81,150 @@ const Banner = () => {
 
           <div className={cx("content")}>
             <span
-              style={{ transform: `translateX(calc(-1106px * ${index}))` }}
+              style={{
+                transform: `translateX(calc(-1106px * ${index}))`,
+              }}
               className={cx("wrapper")}
             >
-              {sliders
-                .map((_, index, array) => {
-                  if (index % 2 === 0 && index < array.length - 1) {
-                    return (
-                      <React.Fragment key={index}>
-                        <div className={cx("slider")}>
-                          <div className={cx("product")}>
-                            <div>
-                              <a
-                                className={cx("item")}
-                                href={array[index].href}
-                              >
-                                <picture>
-                                  <img
-                                    className={cx("item-icon")}
-                                    src={array[index].image}
-                                    alt={array[index].title}
-                                  />
-                                </picture>
-                              </a>
-                            </div>
-                            <div>
-                              <a
-                                className={cx("item")}
-                                href={array[index + 1].href}
-                              >
-                                <picture>
-                                  <img
-                                    className={cx("item-icon")}
-                                    src={array[index + 1].image}
-                                    alt={array[index + 1].title}
-                                  />
-                                </picture>
-                              </a>
+              {/* {
+                <div className={cx("slider")}>
+                  <div className={cx("product")}>
+                    <div>
+                      <a
+                        className={cx("item")}
+                        href={sliders[sliders.length - 2].href}
+                      >
+                        <picture>
+                          <img
+                            className={cx("item-icon")}
+                            src={sliders[sliders.length - 2].image}
+                            alt={sliders[sliders.length - 2].title}
+                          />
+                        </picture>
+                      </a>
+                    </div>
+                    <div>
+                      <a
+                        className={cx("item")}
+                        href={sliders[sliders.length - 1].href}
+                      >
+                        <picture>
+                          <img
+                            className={cx("item-icon")}
+                            src={sliders[sliders.length - 1].image}
+                            alt={sliders[sliders.length - 1].title}
+                          />
+                        </picture>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              } */}
+              {banners.length > 0
+                ? banners.map((_, index, array) => {
+                    if (index % 2 === 0 && index < array.length - 1) {
+                      return (
+                        <React.Fragment key={index}>
+                          <div className={cx("slider")}>
+                            <div className={cx("product")}>
+                              <div>
+                                <a className={cx("item")}>
+                                  <picture>
+                                    <img
+                                      className={cx("item-icon")}
+                                      src={array[index].thumbnail}
+                                    />
+                                  </picture>
+                                </a>
+                              </div>
+                              <div>
+                                <a className={cx("item")}>
+                                  <picture>
+                                    <img
+                                      className={cx("item-icon")}
+                                      src={array[index + 1].thumbnail}
+                                    />
+                                  </picture>
+                                </a>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </React.Fragment>
-                    );
-                  }
-                  return null;
-                })
-                .filter(Boolean)}{" "}
+                        </React.Fragment>
+                      );
+                    }
+                    return null;
+                  })
+                : sliders
+                    .map((_, index, array) => {
+                      if (index % 2 === 0 && index < array.length - 1) {
+                        return (
+                          <React.Fragment key={index}>
+                            <div className={cx("slider")}>
+                              <div className={cx("product")}>
+                                <div>
+                                  <a
+                                    className={cx("item")}
+                                    href={array[index].href}
+                                  >
+                                    <picture>
+                                      <img
+                                        className={cx("item-icon")}
+                                        src={array[index].image}
+                                        alt={array[index].title}
+                                      />
+                                    </picture>
+                                  </a>
+                                </div>
+                                <div>
+                                  <a
+                                    className={cx("item")}
+                                    href={array[index + 1].href}
+                                  >
+                                    <picture>
+                                      <img
+                                        className={cx("item-icon")}
+                                        src={array[index + 1].image}
+                                        alt={array[index + 1].title}
+                                      />
+                                    </picture>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </React.Fragment>
+                        );
+                      }
+                      return null;
+                    })
+                    .filter(Boolean)}{" "}
+              {/* {
+                <div className={cx("slider")}>
+                  <div className={cx("product")}>
+                    <div>
+                      <a className={cx("item")} href={sliders[0].href}>
+                        <picture>
+                          <img
+                            className={cx("item-icon")}
+                            src={sliders[0].image}
+                            alt={sliders[0].title}
+                          />
+                        </picture>
+                      </a>
+                    </div>
+                    <div>
+                      <a className={cx("item")} href={sliders[1].href}>
+                        <picture>
+                          <img
+                            className={cx("item-icon")}
+                            src={sliders[1].image}
+                            alt={sliders[1].title}
+                          />
+                        </picture>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              } */}
             </span>
 
             <div className={cx("pagination")}>

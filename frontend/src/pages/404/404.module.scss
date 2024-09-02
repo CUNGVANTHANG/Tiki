@@ -1,0 +1,49 @@
+.breakpoint {
+  width: 1270px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wrapper {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 8px 0px 24px 0px;
+
+  .icon {
+    margin-bottom: 24px;
+  }
+
+  .text {
+    color: rgb(56, 56, 61);
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+
+  .button {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 320px;
+    height: 44px;
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+    background: rgb(11, 116, 229);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}

@@ -8,6 +8,14 @@
   cursor: pointer;
   position: relative;
   border-radius: 8px;
+
+  a,
+  > span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: rgb(128, 128, 137);
+  }
 }
 
 .header__account img {
@@ -25,5 +33,44 @@
 }
 
 .header__account:hover {
+  background-color: rgba(39, 39, 42, 0.12);
+
+  .user-dropdown {
+    display: block;
+  }
+}
+
+.user-dropdown {
+  display: none;
+  border: 1px solid rgb(239, 239, 239);
+  background: rgb(255, 255, 255);
+  width: 240px;
+  z-index: 15;
+  list-style: none;
+  margin: 0px;
+  padding: 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 6px 12px 0px;
+  position: absolute;
+  top: 38px;
+  left: 0px;
+  transform: translateX(-50%);
+  border-radius: 8px;
+}
+
+.item {
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 0px;
+  padding: 8px 16px;
+  color: rgb(39, 39, 42);
+  font-size: 14px;
+  line-height: 150%;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.item:hover {
   background-color: rgba(39, 39, 42, 0.12);
 }

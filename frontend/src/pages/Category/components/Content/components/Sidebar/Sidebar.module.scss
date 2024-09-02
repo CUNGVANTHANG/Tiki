@@ -1,0 +1,80 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(235, 235, 240);
+  cursor: pointer;
+}
+
+.item {
+  padding: 8px 16px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 24px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.name {
+  color: rgb(39, 39, 42);
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 4px 0px;
+}
+
+.name:hover {
+  color: rgb(10, 104, 255);
+  text-decoration: underline;
+}
+
+.icon {
+  padding: 6px;
+  border-radius: 4px;
+  display: block;
+
+  img {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+.image {
+  object-fit: contain;
+  display: block;
+}
+
+.sub-item {
+  overflow: hidden;
+  transition: max-height 0.3s ease 0s;
+  padding-left: 28px;
+  padding-right: 16px;
+}
+
+.content {
+  padding-bottom: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+  color: rgb(39, 39, 42);
+
+  a {
+    color: rgb(39, 39, 42);
+  }
+
+  &:hover a {
+    color: rgb(1, 87, 224);
+    text-decoration: underline;
+  }
+}

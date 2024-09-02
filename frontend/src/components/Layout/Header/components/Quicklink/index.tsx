@@ -5,7 +5,7 @@ import { useState } from "react";
 const cx = classNames.bind(styles);
 
 const Quicklink = () => {
-  const [quicklinks, setQuicklinks] = useState([
+  const [quicklinks, __] = useState([
     "điện gia dụng",
     "xe cộ",
     "mẹ & bé",

@@ -1,0 +1,81 @@
+.flashsale {
+  width: 100%;
+  margin-right: 0px;
+  padding: 12px 16px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 242px;
+
+  > .header {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+
+    .header-left {
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: start;
+      justify-content: flex-start;
+      cursor: pointer;
+
+      .title {
+        margin-right: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 150%;
+        color: rgb(39, 39, 42);
+      }
+    }
+
+    .navigation {
+      a {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 150%;
+        color: rgb(10, 104, 255);
+      }
+    }
+  }
+
+  > .body {
+    padding-top: 12px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .flashsale {
+    min-height: 265px;
+  }
+}
+
+.count-down {
+  color: rgb(120, 120, 120);
+  font-size: 15px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: rgb(255, 66, 78);
+    border-radius: 4px;
+    color: white;
+    width: 26px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  img {
+    width: 3px;
+    margin: 0px 4px;
+  }
+}

@@ -1,19 +1,22 @@
 import { Layout } from "antd";
-import classNames from "classnames/bind";
-import styles from "./Content.module.scss";
 import Home from "~/pages/Home";
+import Popup from "~/components/Popup";
+import NotFound from "~/pages/404";
+import { Route, Routes } from "react-router-dom";
+import TikiBookStore from "~/pages/Category/TikiBookStore";
 
 const { Content } = Layout;
-
-const cx = classNames.bind(styles);
 
 const CustomContent = () => {
   return (
     <Content>
+      <Popup isVisible={false} />
       <div className="breakpoint">
-        <div className={cx("content")}>
-          <Home />
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/nha-sach-tiki" element={<TikiBookStore />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </Content>
   );

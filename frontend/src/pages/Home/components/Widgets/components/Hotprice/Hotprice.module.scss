@@ -1,0 +1,53 @@
+.hotprice {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+  gap: 12px;
+  border-radius: 8px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  min-height: 24px;
+}
+
+.header-title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: rgb(39, 39, 42);
+
+  .title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+}
+
+.header-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.view {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  color: rgb(10, 104, 255);
+  text-decoration: none;
+}
+
+.slider {
+  width: 100%;
+  position: relative;
+}

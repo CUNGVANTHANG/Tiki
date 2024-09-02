@@ -6,6 +6,7 @@
 - Ant Design
 - Sass (**Support by**: `normalize.css`, `classnames`)
 - Redux Toolkit (**Support by**: `@reduxjs/toolkit`, `react-redux`)
+- ReactJS Hook (useState, useEffect, useRef, useSelector, useLocation, useNavigate, useDispatch)
 
 ### 2. Config alias `~`
 
@@ -25,7 +26,7 @@ export default defineConfig({
 ```
 
 ```json
-// tsconfig.app.json
+/* tsconfig.app.json */
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -47,5 +48,14 @@ $ yarn dev
 ### 1. Using
 
 - NestJS + TypeScript
+- JWT
 
 ## Databases
+
+- MySQL + Docker
+
+## Pages
+
+- Home
+
+## Function

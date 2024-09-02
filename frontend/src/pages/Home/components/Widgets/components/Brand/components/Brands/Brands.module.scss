@@ -1,0 +1,24 @@
+.brand {
+  display: -webkit-box;
+  width: 171px;
+}
+
+.brand-icon {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-image {
+  aspect-ratio: 2 / 3;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}

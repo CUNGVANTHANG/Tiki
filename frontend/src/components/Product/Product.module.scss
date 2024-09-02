@@ -1,0 +1,380 @@
+.wrapper {
+  display: -webkit-box;
+  width: 177.667px;
+}
+
+.wrap-product {
+  height: 100%;
+  width: 100%;
+}
+
+.product-list {
+  text-decoration: none;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  height: 100%;
+}
+
+.product-list:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
+  z-index: 1;
+}
+
+.product-item {
+  display: flex;
+  color: rgb(36, 36, 36);
+  text-decoration: none;
+  flex-direction: column;
+  border: 1px solid rgb(235, 235, 240);
+  border-radius: 8px;
+  background: rgb(255, 255, 255);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.product-info {
+  position: relative;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+
+  .wrap-image {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: contain;
+  display: block;
+}
+
+.ads-badge {
+  display: inline-block;
+  height: 20px;
+  margin: 0px;
+  padding: 2px 4px;
+  background: var(--alias-themeVariant, #f5f5fa);
+  border-radius: 4px;
+  color: rgb(39, 39, 42);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 150%;
+  text-transform: uppercase;
+  border: 1px solid rgb(255, 255, 255);
+  z-index: 2;
+  white-space: nowrap;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.textbadge {
+  background: rgb(217, 56, 67);
+  color: rgb(255, 240, 241);
+  border: 1px solid rgb(255, 255, 255);
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  height: 20px;
+  padding: 2px 4px;
+  gap: 0px;
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 150%;
+}
+
+.framebadge {
+  position: absolute;
+  inset: 0px;
+  z-index: 2;
+}
+
+.wrap-text {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 8px;
+  gap: 4px;
+  flex: 1 1 0%;
+
+  .wrap-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 0%;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 58px;
+}
+
+.product-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  align-self: stretch;
+  overflow: hidden;
+  color: #27272a;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 0px;
+  word-break: break-word;
+}
+
+.product-rating {
+  display: flex;
+  height: 18px;
+}
+
+.stars {
+  font-size: 12px;
+  display: inline-block;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+  white-space: nowrap;
+}
+
+.wrap-stars {
+  z-index: 2;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.price-discount-wrapper {
+  .wrap-price {
+    text-align: left;
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 600;
+    color: rgb(39, 39, 42);
+    margin: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  .discount {
+    display: flex;
+    padding: 0px 4px;
+    align-items: flex-start;
+    border-radius: 8px;
+    background: #f5f5fa;
+    color: #27272a;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  .original-price {
+    color: #808089;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    text-decoration-line: line-through;
+  }
+}
+
+.price {
+  color: rgb(255, 66, 78);
+}
+
+.wrap-discount {
+  display: flex;
+  gap: 4px;
+  height: 18px;
+}
+
+.delivery-date {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wrap-delivery {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.location {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  color: var(--Alias-Primary---On-Theme, #27272a);
+  text-overflow: ellipsis;
+  height: 15px;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.delivery-info {
+  display: flex;
+  gap: 4px;
+  border-top: 1px solid rgb(235, 235, 240);
+  padding-top: 6px;
+  -webkit-box-align: center;
+  align-items: center;
+
+  span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    flex: 1 0 0px;
+    overflow: hidden;
+    color: #808089;
+    text-overflow: ellipsis;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}
+
+.productLine {
+  display: -webkit-box;
+  width: 171px;
+}
+
+.wrapLine {
+  width: 100%;
+}
+
+.product_items {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.product_items:hover {
+  opacity: 0.95;
+}
+
+.product_thumbnail {
+  position: relative;
+  width: 100%;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+
+  img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.price-discount {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding: 2px;
+  background: rgb(255, 219, 222);
+  border-radius: 4px;
+  color: rgb(255, 66, 78);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+.has-discount {
+  min-height: 24px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: rgb(255, 66, 78);
+  margin: 8px 0px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: center;
+}
+
+.sales {
+  background-color: rgb(255, 170, 175);
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 16px;
+
+  > span {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    padding: 0px 0px 0px 6px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+  }
+}
+
+.progress {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgb(255, 66, 78);
+  height: 16px;
+  border-radius: 10px;
+  min-width: 16px;
+}

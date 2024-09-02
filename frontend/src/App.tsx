@@ -1,20 +1,33 @@
 import { Layout } from "antd";
 import CustomHeader from "./components/Layout/Header";
-import FreeShipping from "./components/Layout/FreeShipping";
+import Commit from "./components/Layout/Commit";
 import CustomContent from "./components/Layout/Content";
 import CustomFooter from "./components/Layout/Footer";
 import WidgetChat from "./components/Layout/WidgetChat";
-import Modal from "./pages/Home/components/Modal";
+import { ModalLogin } from "./components/Modal";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchProducts } from "./redux/features/products.service";
 
 function App() {
+  const location = useLocation();
+  const dispatch = useDispatch<any>();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, location.pathname]);
+
   return (
     <Layout>
       <CustomHeader />
-      <FreeShipping />
+      <Commit />
       <CustomContent />
-      <CustomFooter />
+      {location.pathname !== "/" && <CustomFooter />}
       <WidgetChat />
-      <Modal />
+      <ModalLogin />
     </Layout>
   );
 }

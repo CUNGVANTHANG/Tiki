@@ -111,3 +111,180 @@
 .top-widgets .promo > .webpimg-container {
   height: 28px;
 }
+
+.suggestion {
+  background-color: rgb(255, 255, 255);
+}
+
+.suggestion .suggestion-item:first-child {
+  border-top: 0px;
+}
+
+.suggestion .suggestion-item {
+  color: rgb(39, 39, 42);
+  font-size: 14px;
+  line-height: 150%;
+  height: 36px;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0px 16px;
+}
+
+.suggestion .suggestion-item > .item-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.suggestion .suggestion-item > .keyword {
+  flex: 1 1 0%;
+  padding: 0px 0px 0px 8px;
+}
+
+.suggestion .show-more {
+  font-size: 12px;
+  line-height: 1.67;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  color: rgb(13, 92, 182);
+}
+
+.suggestion .show-more > div {
+  display: flex;
+  padding: 6px 16px;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.suggestion .show-more .show-more__icon-bottom {
+  margin-left: 8px;
+  transform: rotate(90deg);
+}
+
+.suggestion .show-more .show-more__icon-top {
+  margin-left: 8px;
+  transform: rotate(270deg);
+}
+
+.hot-keyword {
+  background-color: rgb(255, 255, 255);
+  padding: 8px 12px 12px;
+  border-top: 1px solid rgb(242, 242, 242);
+}
+
+.hot-keyword .wrap-heading {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 15px;
+  line-height: 24px;
+  padding: 0px 0px 8px;
+}
+
+.hot-keyword .trending {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.hot-keyword .inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+
+.hot-keyword .item {
+  font-size: 12px;
+  line-height: 1.67;
+  display: flex;
+  background: rgb(250, 250, 250);
+  color: rgb(36, 36, 36);
+  text-decoration: none;
+}
+
+.hot-keyword .item .thumb {
+  width: 38px;
+  height: 38px;
+  margin-right: 8px;
+  object-fit: contain;
+}
+
+.hot-keyword .item > .title {
+  font-size: 12px;
+  line-height: 16px;
+  margin: 4px 0px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.hot-categories {
+  background-color: rgb(255, 255, 255);
+  padding: 8px 12px 12px;
+  border-top: 1px solid rgb(242, 242, 242);
+}
+
+.hot-categories .wrap-heading {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 15px;
+  line-height: 24px;
+  padding: 0px 0px 8px;
+}
+
+.hot-categories .inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 12px 8px;
+}
+
+.hot-categories .item-categories {
+  font-size: 12px;
+  line-height: 1.67;
+  display: flex;
+  flex-direction: column;
+  color: rgb(36, 36, 36);
+  text-decoration: none;
+}
+
+.hot-categories .item-categories > .thumb-wrap {
+  padding: 0px 40px;
+}
+
+.hot-categories .item-categories > .thumb-wrap .thumb {
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 36%;
+  position: relative;
+  overflow: hidden;
+  background: rgb(250, 250, 250);
+}
+
+.hot-categories .item-categories > .thumb-wrap .thumb > img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hot-categories .item-categories > .title {
+  font-size: 12px;
+  line-height: 16px;
+  padding: 6px 0px 0px;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

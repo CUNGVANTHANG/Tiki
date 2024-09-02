@@ -1,0 +1,65 @@
+.wrapper#wrapper {
+  background: transparent;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 382px;
+  height: auto;
+  padding-top: 50px;
+  border-radius: unset;
+  box-shadow: unset;
+  overflow: unset;
+}
+
+.wrapper {
+  background: white;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  border-radius: 12px 12px 0px 0px;
+  overflow: hidden;
+  width: 375px;
+  height: 88px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px -4px 6px;
+  z-index: 9999;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(39, 39, 42, 0.7);
+  opacity: 0.5;
+}
+
+.content {
+  z-index: 1;
+  position: relative;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.close-icon {
+  cursor: pointer;
+  opacity: 1;
+  object-fit: contain;
+  display: block;
+}
+
+.popup-image {
+  margin-top: 11px;
+  cursor: pointer;
+  height: 100%;
+  opacity: 1;
+  object-fit: contain;
+  width: 100%;
+  display: block;
+}
