@@ -50,23 +50,10 @@
   overflow: hidden;
 }
 
-.sliders .content .wrapper {
-  display: inline-flex;
-  transition: all 0.5s ease-in-out 0s;
-  min-width: 100%;
-  // transition: none 0 ease 0;
-}
-
 .sliders:hover {
   .icon {
     display: flex;
   }
-}
-
-.wrapper {
-  gap: 0px;
-  // transform: translateX(-1106px);
-  transition: all 0.5s ease-in-out 0s;
 }
 
 .slider {
@@ -123,6 +110,13 @@
 }
 
 .line {
+  width: 16px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.active {
   width: 24px;
   height: 2px;
   background: rgb(10, 104, 255);

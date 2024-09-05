@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideSearch, showSearch } from "~/redux/features/search.slice";
 import { RootState } from "~/redux/store/";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -99,7 +100,8 @@ const Search = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const dispatch = useDispatch();
   const isVisible = useSelector((state: RootState) => state.search.isVisible);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLFormElement>(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -150,8 +152,28 @@ const Search = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+    dispatch(hideSearch());
+    const query = inputValue.trim();
+
+    if (query) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      handleFormSubmit(event);
+    }
+  };
+
   return (
-    <div ref={searchRef} className={cx("header__search")}>
+    <form
+      ref={searchRef}
+      onSubmit={handleFormSubmit}
+      className={cx("header__search")}
+    >
       <div className={cx("search-form")}>
         <img
           className={cx("icon-search")}
@@ -162,11 +184,14 @@ const Search = () => {
           onMouseDown={handleShowSearch}
           type="text"
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
           placeholder={placeholder}
           value={inputValue}
           className={cx("search-input")}
         />
-        <button className={cx("search-btn")}>Tìm kiếm</button>
+        <button type="submit" className={cx("search-btn")}>
+          Tìm kiếm
+        </button>
 
         {isVisible && (
           <div className={cx("search-quick")}>
@@ -188,7 +213,7 @@ const Search = () => {
             <div className={cx("suggestion")}>
               {suggestions.map((suggestion, index) =>
                 index < 3 || showSuggestions || inputValue ? (
-                  <a key={index} className={cx("suggestion-item")} href="/">
+                  <a key={index} className={cx("suggestion-item")}>
                     <img
                       className={cx("item-icon")}
                       src="../images/suggestion.png"
@@ -270,7 +295,7 @@ const Search = () => {
           </div>
         )}
       </div>
-    </div>
+    </form>
   );
 };
 

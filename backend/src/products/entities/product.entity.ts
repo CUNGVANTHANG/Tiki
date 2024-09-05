@@ -11,13 +11,13 @@ export class ProductEntity {
   @Column()
   thumbnail: string;
 
-  @Column()
+  @Column('double')
   rating: number;
 
-  @Column()
+  @Column('double')
   price: number;
 
-  @Column()
+  @Column('double')
   discount: number;
 
   @Column()
@@ -47,9 +47,6 @@ export class ProductEntity {
   @Column()
   quantity: number;
 
-  @Column()
+  @Column('boolean')
   ads: boolean;
-
-  @Column()
-  tag: string;
 }

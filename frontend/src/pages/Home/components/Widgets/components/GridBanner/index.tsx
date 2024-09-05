@@ -73,7 +73,7 @@ const GridBanner = () => {
       <Sliders grid="true">
         <div className={cx("grid")}>
           {dataFake.map((item, index) => (
-            <div>
+            <div key={index}>
               <a className={cx("item")} href="/">
                 <picture>
                   <img

@@ -3,6 +3,8 @@ import styles from "./Suggest.module.scss";
 import Advertisement from "./components/Advertisement";
 import { ProductOther } from "~/components/Product";
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "~/redux/store";
 
 const cx = classNames.bind(styles);
 
@@ -10,1136 +12,1300 @@ interface SuggestProps {
   products: any[];
 }
 
-const dataFake = (
-  <>
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-    <ProductOther
-      width="100%"
-      thumbnail="https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp"
-      altThumbnail="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      adsbadge="true"
-      textbadge="25.08"
-      framebadge="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-      altFramebadge="product_image_badge"
-      name="Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng"
-      stars="5"
-      price="2699000"
-      discount="10"
-      delivery="Giao thứ 7, 31/08"
-    />
-  </>
-);
+const dataFake = [
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+  {
+    width: "100%",
+    thumbnail:
+      "https://salt.tikicdn.com/cache/280x280/ts/product/20/8a/2f/ac19c0e7a49db2c071960a7b9d3b81b2.jpg.webp",
+    altThumbnail: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    adsbadge: "true",
+    textbadge: "25.08",
+    framebadge:
+      "https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png",
+    altFramebadge: "product_image_badge",
+    name: "Loa Bluetooth JBL Flip 6 JBLFLIP6 - Hàng chính hãng",
+    stars: "5",
+    price: "2699000",
+    discount: "10",
+    delivery: "Giao thứ 7, 31/08",
+  },
+];
 
 const Suggest = ({ products }: SuggestProps) => {
   const [currentView, setCurrentView] = useState(35);
   const [isNearTop, setIsNearTop] = useState(false);
   const [opacity, setOpacity] = useState(1);
-  const slicedProducts = products.slice(0, currentView);
+  const banners = useSelector((state: RootState) => state.banners.items);
+  const bannerProducts = banners.filter((banner) => banner.type === "product");
+  const slicedProducts =
+    products.length > 0
+      ? products.slice(0, currentView)
+      : dataFake.slice(0, currentView);
+
   const headerRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLAnchorElement>(null);
 
@@ -1253,7 +1419,12 @@ const Suggest = ({ products }: SuggestProps) => {
       </div>
       <div className={cx("products")}>
         <div className={cx("content")}>
-          <Advertisement brand="https://salt.tikicdn.com/cache/w750/ts/tka/65/63/74/5ee40d5fcce2b8c83592ec45a4f3a01d.jpg.webp" />
+          <Advertisement
+            brand={
+              bannerProducts[0]?.thumbnail ||
+              "https://salt.tikicdn.com/cache/w750/ts/tka/65/63/74/5ee40d5fcce2b8c83592ec45a4f3a01d.jpg.webp"
+            }
+          />
 
           {products.length > 0
             ? slicedProducts.map((product, index) => {
@@ -1277,12 +1448,40 @@ const Suggest = ({ products }: SuggestProps) => {
                         adsbadge={product.ads}
                       />
                     ) : (
-                      <Advertisement brand="https://salt.tikicdn.com/cache/w750/ts/tka/06/1b/a2/5d56fcc47446b7c45b6786274c941700.jpg.webp" />
+                      <Advertisement
+                        brand={
+                          bannerProducts[1]?.thumbnail ||
+                          "https://salt.tikicdn.com/cache/w750/ts/tka/06/1b/a2/5d56fcc47446b7c45b6786274c941700.jpg.webp"
+                        }
+                      />
                     )}
                   </React.Fragment>
                 );
               })
-            : dataFake}
+            : slicedProducts.map((product, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {index !== 19 ? (
+                      <ProductOther
+                        width="100%"
+                        key={index}
+                        thumbnail={product.thumbnail}
+                        altThumbnail={product.name}
+                        textbadge={product.textbadge}
+                        framebadge={product.framebadge}
+                        name={product.name}
+                        stars={product.stars}
+                        price={product.price}
+                        discount={product.discount}
+                        delivery={product.delivery}
+                        adsbadge={product.adsbadge}
+                      />
+                    ) : (
+                      <Advertisement brand="https://salt.tikicdn.com/cache/w750/ts/tka/06/1b/a2/5d56fcc47446b7c45b6786274c941700.jpg.webp" />
+                    )}
+                  </React.Fragment>
+                );
+              })}
         </div>
         <a ref={footerRef} onClick={handleViewMore} className={cx("view-more")}>
           Xem Thêm

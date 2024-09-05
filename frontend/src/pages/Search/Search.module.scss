@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.right-container {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  top: 24px;
+  margin: 0px auto;
+}
+
+.products {
+  position: relative;
+  opacity: 1;
+}
+
+.products-wrapper {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, calc(25% - 6px));
+  padding-bottom: 16px;
+}

@@ -8,24 +8,24 @@ import { ModalLogin } from "./components/Modal";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchProducts } from "./redux/features/products.service";
+import { fetchBanners } from "./redux/features/banners.service";
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      dispatch(fetchProducts());
-    }
-  }, [dispatch, location.pathname]);
+    dispatch(fetchBanners());
+  }, [dispatch]);
 
   return (
     <Layout>
       <CustomHeader />
       <Commit />
       <CustomContent />
-      {location.pathname !== "/" && <CustomFooter />}
+      {location.pathname !== "/" && location.pathname !== "/search" && (
+        <CustomFooter />
+      )}
       <WidgetChat />
       <ModalLogin />
     </Layout>

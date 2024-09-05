@@ -1,4 +1,4 @@
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "../../components/BreadCrumb";
 import Layout from "../components/Content";
 import Discount from "../components/Discount";
 import Information from "../components/Information";

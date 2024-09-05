@@ -6,7 +6,7 @@ import Account from "./components/Account";
 import Cart from "./components/Cart";
 import Quicklink from "./components/Quicklink";
 import Location from "./components/Location";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
@@ -14,13 +14,14 @@ const cx = classNames.bind(styles);
 
 const CustomHeader = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <Header className={cx("header")}>
       <div className="breakpoint">
         <div className={cx("header-layout")}>
           <div className={cx("header__logo")}>
-            <a href="/">
+            <a onClick={() => navigate("/")}>
               <img src="../images/logo.png" alt="header__logo" />
               <span>Tốt & Nhanh</span>
             </a>
@@ -44,12 +45,12 @@ const CustomHeader = () => {
                   {location.pathname !== "/" ? (
                     <a
                       style={{ color: "rgb(128, 128, 137)", fontWeight: "400" }}
-                      href="/"
+                      onClick={() => navigate("/")}
                     >
                       Trang chủ
                     </a>
                   ) : (
-                    <a href="/">Trang chủ</a>
+                    <a onClick={() => navigate("/")}>Trang chủ</a>
                   )}
                 </div>
                 <Account />

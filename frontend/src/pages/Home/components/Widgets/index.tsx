@@ -12,18 +12,19 @@ import Suggest from "./components/Suggest";
 import Maylike from "./components/Maylike";
 import { getAllProducts } from "~/services/products";
 import { getAllBrands } from "~/services/brands";
-import { getAllBanners } from "~/services/banners";
 import GridBanner from "./components/GridBanner";
+import { RootState } from "~/redux/store";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 const Widgets = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [brands, setBrands] = useState<any[]>([]);
-  const [banners, setBanners] = useState<any[]>([]);
+  const banners = useSelector((state: RootState) => state.banners.items);
   const [isFlashsaleVisible, setIsFlashsaleVisible] = useState(true);
-  const startTime = new Date("2024-08-30T10:56:00");
-  const endTime = new Date("2024-08-30T18:00:00");
+  const startTime = new Date("2024-09-04T8:55:00");
+  const endTime = new Date("2024-09-04T18:00:00");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -49,19 +50,6 @@ const Widgets = () => {
     };
 
     fetchBrands();
-  }, []);
-
-  useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const banners = await getAllBanners();
-        setBanners(banners);
-      } catch (error) {
-        console.error("Failed to fetch banners:", error);
-      }
-    };
-
-    fetchBanners();
   }, []);
 
   useEffect(() => {
@@ -92,7 +80,11 @@ const Widgets = () => {
 
   return (
     <div className={cx("widgets")}>
-      <Banner banners={banners} />
+      <Banner
+        banners={banners.filter(
+          (banner, index) => index < 6 && banner.type == "slider"
+        )}
+      />
       <Quicklink />
       <Topdeal products={topdeal} />
       {isFlashsaleVisible && (

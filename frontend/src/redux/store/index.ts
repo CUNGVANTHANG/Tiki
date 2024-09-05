@@ -2,11 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "../features/modal.slice";
 import searchReducer from "../features/search.slice";
 import authReducer from "../features/auth.slice";
-import productsReducer from "../features/products.service";
+import bannersReducer from "../features/banners.service";
 
 const store = configureStore({
   reducer: {
-    products: productsReducer,
+    banners: bannersReducer,
     auth: authReducer,
     search: searchReducer,
     modal: modalReducer,

@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -183,6 +184,7 @@ const utilities = [
 ];
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className={cx("sidebar")}>
       <div className={cx("sidebar__listItem")}>
@@ -191,7 +193,7 @@ const Sidebar = () => {
         {category.map((item, index) => (
           <div key={index}>
             <div className={cx("items")}>
-              <a title={item.title} href={item.href}>
+              <a title={item.title} onClick={() => navigate(item.href)}>
                 <div className={cx("item-icon")}>
                   <picture>
                     <img
@@ -214,7 +216,7 @@ const Sidebar = () => {
         {utilities.map((item, index) => (
           <div key={index}>
             <div className={cx("items")}>
-              <a title={item.title} href={item.href}>
+              <a title={item.title} onClick={() => navigate(item.href)}>
                 <div className={cx("item-icon")}>
                   <picture>
                     <img

@@ -26,6 +26,6 @@ export class BannersService {
   async delete() {}
 
   async findAll() {
-    return await this.bannersRepository.find({ take: 6 });
+    return await this.bannersRepository.find();
   }
 }
