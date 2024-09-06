@@ -3,8 +3,9 @@ import classNames from "classnames/bind";
 import styles from "./Account.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/redux/store/";
-import { showModal } from "~/redux/features/modal.slice";
+import { showModalLogin } from "~/redux/features/modal.slice";
 import { logout } from "~/redux/features/auth.slice";
+import { auth } from "~/services/firebase";
 
 const cx = classNames.bind(styles);
 
@@ -12,19 +13,20 @@ const Account = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  const handleShowModal = () => {
+  const handleshowModalLogin = () => {
     if (isLoggedIn) {
       return;
     }
-    dispatch(showModal());
+    dispatch(showModalLogin());
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await auth.signOut();
     dispatch(logout());
   };
 
   return (
-    <div onClick={handleShowModal} className={cx("header__account")}>
+    <div onClick={handleshowModalLogin} className={cx("header__account")}>
       <img src="../images/user.png" alt="User" />
       <span>Tài khoản</span>
       {isLoggedIn && (

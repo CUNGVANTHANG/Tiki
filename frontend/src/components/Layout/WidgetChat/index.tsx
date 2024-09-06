@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./WidgetChat.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/redux/store/";
-import { showModal } from "~/redux/features/modal.slice";
+import { showModalLogin } from "~/redux/features/modal.slice";
 
 const cx = classNames.bind(styles);
 
@@ -11,15 +11,15 @@ const WidgetChat = () => {
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  const handleShowModal = () => {
+  const handleshowModalLogin = () => {
     if (isLoggedIn) {
       return;
     }
-    dispatch(showModal());
+    dispatch(showModalLogin());
   };
 
   return (
-    <div onClick={handleShowModal} className={cx("widget-chat")}>
+    <div onClick={handleshowModalLogin} className={cx("widget-chat")}>
       <div className={cx("assistant")}>
         <img src="../images/assistant.png" alt="chat-gpt-icon" />
         <div>Trợ lý</div>

@@ -229,3 +229,181 @@ input::placeholder {
   color: rgb(36, 36, 36);
   opacity: 0.45;
 }
+
+.modal-location-content {
+  position: relative;
+  inset: 0px;
+  border: none;
+  background: rgb(255, 255, 255);
+  overflow: unset;
+  border-radius: 4px;
+  outline: none;
+  padding: 0px;
+  width: 600px;
+  margin: 0px auto;
+}
+
+.modal-location-wrapper {
+  position: relative;
+  margin: 60px 0px;
+  padding: 15px;
+  background-color: rgb(248, 248, 248);
+  border-radius: 4px;
+}
+
+.modal-location-close {
+  cursor: pointer;
+  position: absolute;
+  top: -11px;
+  right: -12px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
+.tiki-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.tiki-icon.icon-circle-close {
+  background-image: url("../../../public/images/sprite.png");
+  background-position: -304px -29px;
+  width: 24px;
+  height: 24px;
+}
+
+.modal-location-header {
+  margin-bottom: 1px;
+  padding: 15px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px 4px 0px 0px;
+}
+
+.modal-location-title {
+  margin: 0px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.modal-location-body {
+  padding: 24px 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0px 0px 4px 4px;
+}
+
+.modal-location-description {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  line-height: 1.43;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.modal-location-login {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+
+  button {
+    cursor: pointer;
+    width: 296px;
+    height: 40px;
+    padding: 0px;
+    color: rgb(74, 74, 74);
+    font-size: 13px;
+    line-height: 38px;
+    border: 1px rgb(253, 216, 53);
+    border-radius: 4px;
+    background-color: rgb(253, 216, 53);
+    outline: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  div {
+    position: relative;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-self: stretch;
+    margin: 15px 0px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      width: 100%;
+      border-bottom: 1px solid rgb(219, 219, 219);
+      z-index: 0;
+    }
+
+    p {
+      margin: 0px;
+      padding: 0px 15px;
+      color: rgb(51, 51, 51);
+      font-size: 12px;
+      background-color: rgb(255, 255, 255);
+      z-index: 1;
+    }
+  }
+}
+
+.radio-button {
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 10px 0px;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  .picker-text {
+    margin-left: 10px;
+  }
+}
+
+.tiki-icon.icon-radio-button {
+  background-image: url("../../../public/images/sprite.png");
+  background-position: -304px -87px;
+  width: 24px;
+  height: 24px;
+}
+
+.tiki-icon.icon-radio-button-off {
+  background-image: url("../../../public/images/sprite.png");
+  background-position: -304px -116px;
+  width: 24px;
+  height: 24px;
+}
+
+.modal-location-footer {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 15px 15px 0px;
+}
+
+.modal-location-picker-save {
+  cursor: pointer;
+  width: 296px;
+  height: 40px;
+  color: rgb(255, 255, 255);
+  font-size: 13px;
+  line-height: 38px;
+  font-weight: 300;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: rgb(255, 66, 78);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

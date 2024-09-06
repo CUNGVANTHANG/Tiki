@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Cart.module.scss";
-import { showModal } from "~/redux/features/modal.slice";
+import { showModalLogin } from "~/redux/features/modal.slice";
 import { RootState } from "~/redux/store/";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,15 +11,15 @@ const Cart = () => {
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  const handleShowModal = () => {
+  const handleshowModalLogin = () => {
     if (isLoggedIn) {
       return;
     }
-    dispatch(showModal());
+    dispatch(showModalLogin());
   };
 
   return (
-    <div onClick={handleShowModal} className={cx("header__cart")}>
+    <div onClick={handleshowModalLogin} className={cx("header__cart")}>
       <a href="#">
         <div className={cx("cart-item")}>
           <div className={cx("cart-wrapper")}>

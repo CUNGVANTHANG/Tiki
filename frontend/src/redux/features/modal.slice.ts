@@ -1,25 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ModalState {
-  isVisible: boolean;
+  isVisibleLogin: boolean;
+  isVisibleLocation: boolean;
 }
 
 const initialState: ModalState = {
-  isVisible: false,
+  isVisibleLogin: false,
+  isVisibleLocation: false,
 };
 
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    showModal: (state) => {
-      state.isVisible = true;
+    showModalLogin: (state) => {
+      state.isVisibleLogin = true;
     },
-    hideModal: (state) => {
-      state.isVisible = false;
+    hideModalLogin: (state) => {
+      state.isVisibleLogin = false;
+    },
+    showModalLocation: (state) => {
+      state.isVisibleLocation = true;
+    },
+    hideModalLocation: (state) => {
+      state.isVisibleLocation = false;
     },
   },
 });
 
-export const { showModal, hideModal } = modalSlice.actions;
+export const {
+  showModalLogin,
+  hideModalLogin,
+  showModalLocation,
+  hideModalLocation,
+} = modalSlice.actions;
 export default modalSlice.reducer;

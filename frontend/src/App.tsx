@@ -4,15 +4,22 @@ import Commit from "./components/Layout/Commit";
 import CustomContent from "./components/Layout/Content";
 import CustomFooter from "./components/Layout/Footer";
 import WidgetChat from "./components/Layout/WidgetChat";
-import { ModalLogin } from "./components/Modal";
+import { ModalLocation, ModalLogin } from "./components/Modal";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchBanners } from "./redux/features/banners.service";
+import { RootState } from "./redux/store";
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch<any>();
+  const isVisibleLogin = useSelector(
+    (state: RootState) => state.modal.isVisibleLogin
+  );
+  const isVisibleLocation = useSelector(
+    (state: RootState) => state.modal.isVisibleLocation
+  );
 
   useEffect(() => {
     dispatch(fetchBanners());
@@ -27,7 +34,8 @@ function App() {
         <CustomFooter />
       )}
       <WidgetChat />
-      <ModalLogin />
+      {isVisibleLogin && <ModalLogin />}
+      {isVisibleLocation && <ModalLocation />}
     </Layout>
   );
 }
