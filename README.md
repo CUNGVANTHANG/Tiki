@@ -6,9 +6,11 @@
 - Ant Design
 - Sass (**Support by**: `normalize.css`, `classnames`)
 - Redux Toolkit (**Support by**: `@reduxjs/toolkit`, `react-redux`)
-- ReactJS Hook (useState, useEffect, useRef, useSelector, useLocation, useNavigate, useDispatch)
+- ReactJS Hook (useState, useEffect, useRef, useSelector, useLocation, useNavigate, useDispatch, useMemo)
+- 3rd party service: Firebase, ESGOO
 
-### 2. Config 
+### 2. Config
+
 ### 2.1. alias `~`
 
 ```
@@ -52,7 +54,7 @@ const firebaseConfig = {
   storageBucket: "chat-app-ca301.appspot.com",
   messagingSenderId: "365404581577",
   appId: "1:365404581577:web:4d0135bfb9eb4819852718",
-  measurementId: "G-E5G4FTZGEC"
+  measurementId: "G-E5G4FTZGEC",
 };
 ```
 
@@ -84,6 +86,27 @@ When it displays like this, it is **successful**
 
 <img src="https://github.com/user-attachments/assets/41e053a8-cb1c-4d64-ab78-2817f4487f94" width="300px" >
 
+### 2.3. ESGOO
+
+> https://esgoo.net/api-lay-thong-tin-tinh-thanh-quan-huyen-phuong-xa-viet-nam-bv5.htm
+
+- Get Province: https://esgoo.net/api-tinhthanh/{A}/{B}.htm
+
+  - Variable {A}: value 1
+  - Variable {B}: value is 0
+  - Data demo links: https://esgoo.net/api-tinhthanh/1/0.htm
+
+- Get District: https://esgoo.net/api-tinhthanh/{A}/{B}.htm
+
+  - Variable {A}: value 2
+  - Variable {B}: value is the province id
+  - Data demo links: https://esgoo.net/api-tinhthanh/2/01.htm
+
+- Get the Ward: https://esgoo.net/api-tinhthanh/{A}/{B}.htm
+  - Variable {A}: value 3
+  - Variable {B}: value is district id
+  - Data demo links: https://esgoo.net/api-tinhthanh/3/001.htm
+
 ### 3. Run application
 
 ```
@@ -95,11 +118,18 @@ $ yarn dev
 ### 1. Using
 
 - NestJS + TypeScript
-- JWT
+- class-transformer, class-validator
+- 3rd party service
 
 ## Databases
 
 - MySQL + Docker
+
+### 1. Config
+
+```
+$ docker-compose -d up
+```
 
 ## Pages
 

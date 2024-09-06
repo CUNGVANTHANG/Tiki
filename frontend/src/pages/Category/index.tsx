@@ -1,9 +1,9 @@
-import BreadCrumb from "../../components/BreadCrumb";
-import Layout from "../components/Content";
-import Discount from "../components/Discount";
-import Information from "../components/Information";
-import RelatedSeaches from "../components/RelatedSeaches";
-import Watched from "../components/Watched";
+import BreadCrumb from "~/components/BreadCrumb";
+import Layout from "./components/Content";
+import Discount from "./components/Discount";
+import Information from "./components/Information";
+import RelatedSeaches from "./components/RelatedSeaches";
+import Watched from "./components/Watched";
 
 const category = [
   {
@@ -105,7 +105,7 @@ const category = [
   },
 ];
 
-const TikiBookStore = () => {
+const Category = () => {
   return (
     <>
       <BreadCrumb route="Nhà Sách Tiki" />
@@ -118,4 +118,4 @@ const TikiBookStore = () => {
   );
 };
 
-export default TikiBookStore;
+export default Category;

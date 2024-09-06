@@ -3,9 +3,14 @@ import styles from "./Modal.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/redux/store/";
-import { hideModalLogin } from "~/redux/features/modal.slice";
+import {
+  hideModalLocation,
+  hideModalLogin,
+  showModalLogin,
+} from "~/redux/features/modal.slice";
 import firebase, { auth } from "~/services/firebase";
 import { login } from "~/redux/features/auth.slice";
+import { getDistrict, getProvince, getWard } from "~/services/location";
 
 const cx = classNames.bind(styles);
 
@@ -155,17 +160,129 @@ const ModalLogin = () => {
 };
 
 const ModalLocation = () => {
+  const [valueProvince, setValueProvince] = useState("");
+  const [valueDistrict, setValueDistrict] = useState("");
+  const [valueWard, setValueWard] = useState("");
+  const [location, setLocation] = useState("");
+  const [province, setProvince] = useState<any[]>([]);
+  const [ward, setWard] = useState<any[]>([]);
+  const [district, setDistrict] = useState<any[]>([]);
+  const [isOptionProvince, setOptionProvince] = useState(false);
+  const [isOptionWard, setOptionWard] = useState(false);
+  const [isOptionDistrict, setOptionDistrict] = useState(false);
+  const [isForm, setForm] = useState(false);
+  const [idProvince, setIdProvince] = useState("");
+  const [idDistrict, setIdDistrict] = useState("");
+  const [isPicker, setPicker] = useState(false);
   const isVisible = useSelector(
     (state: RootState) => state.modal.isVisibleLocation
   );
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: any) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setOptionProvince(false);
+    }
+  };
+
+  const handleOnClose = () => {
+    dispatch(hideModalLocation());
+  };
+
+  const handleOnLogin = () => {
+    dispatch(hideModalLocation());
+    dispatch(showModalLogin());
+  };
+
+  const handleSaveLocation = () => {
+    if (!isLoggedIn) {
+      const locationText = "Sẽ lưu";
+      setLocation(locationText);
+      localStorage.setItem("location", locationText);
+    }
+  };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      const savedLocation = localStorage.getItem("location");
+      savedLocation && setLocation(savedLocation);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isVisible &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        handleOnClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
+    const fetchProvince = async () => {
+      try {
+        const province = await getProvince();
+        setProvince(province);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchProvince();
+  }, []);
+
+  useEffect(() => {
+    if (!idDistrict) return;
+    const debounceFetchWard = setTimeout(async () => {
+      try {
+        const ward = await getWard(idDistrict);
+        setWard(ward);
+      } catch (error) {
+        console.error("Failed to fetch ward:", error);
+      }
+    }, 300); // Adjust the delay as needed
+
+    return () => clearTimeout(debounceFetchWard);
+  }, [district]);
+
+  useEffect(() => {
+    if (!idProvince) return;
+    const fetchDistrict = async () => {
+      try {
+        const district = await getDistrict(idProvince);
+        setDistrict(district);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchDistrict();
+  }, [province]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     isVisible && (
       <div>
         <div className={cx("overlay")}>
-          <div className={cx("modal-location-content")}>
+          <div ref={modalRef} className={cx("modal-location-content")}>
             <div className={cx("modal-location-wrapper")}>
-              <a className={cx("modal-location-close")}>
+              <a onClick={handleOnClose} className={cx("modal-location-close")}>
                 <span className={cx("tiki-icon", "icon-circle-close")}></span>
               </a>
               <div className={cx("modal-location-header")}>
@@ -177,33 +294,248 @@ const ModalLocation = () => {
                   cùng phí đóng gói, vận chuyển một cách chính xác nhất.
                 </p>
                 <div className={cx("modal-location-login")}>
-                  <button>Đăng nhập để chọn địa chỉ giao hàng</button>
+                  <button onClick={handleOnLogin}>
+                    Đăng nhập để chọn địa chỉ giao hàng
+                  </button>
                   <div>
                     <p>hoặc</p>
                   </div>
                 </div>
                 <div className={cx("modal-location-picker")}>
-                  <button className={cx("radio-button")}>
+                  <button
+                    onClick={() => {
+                      if (isPicker || isForm) {
+                        setPicker(!isPicker);
+                        setForm(!isForm);
+                      }
+                    }}
+                    className={cx("radio-button")}
+                  >
                     <span
-                      className={cx("tiki-icon", "icon-radio-button")}
+                      className={cx(
+                        "tiki-icon",
+                        !isPicker
+                          ? "icon-radio-button"
+                          : "icon-radio-button-off"
+                      )}
                     ></span>
                     <span className={cx("picker-text")}>
-                      Phường Mai Dịch, Quận Cầu Giấy, Hà Nội
+                      {location
+                        ? location
+                        : "Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội"}
                     </span>
                   </button>
                 </div>
                 <div className={cx("modal-location-picker")}>
-                  <button className={cx("radio-button")}>
+                  <button
+                    onClick={() => {
+                      if (!isPicker || !isForm) {
+                        setPicker(!isPicker);
+                        setForm(!isForm);
+                      }
+                    }}
+                    className={cx("radio-button")}
+                  >
                     <span
-                      className={cx("tiki-icon", "icon-radio-button-off")}
+                      className={cx(
+                        "tiki-icon",
+                        isPicker ? "icon-radio-button" : "icon-radio-button-off"
+                      )}
                     ></span>
                     <span className={cx("picker-text")}>
                       Chọn khu vực giao hàng khác
                     </span>
                   </button>
                 </div>
+
+                {isForm && (
+                  <div className={cx("modal-location-form")}>
+                    <div className={cx("row")}>
+                      <p className={cx("location-type")}>Tỉnh/Thành phố</p>
+                      <div
+                        onClick={() => setOptionProvince(!isOptionProvince)}
+                        className={cx("location-option")}
+                      >
+                        <div
+                          style={
+                            isOptionProvince
+                              ? {
+                                  borderColor: "rgb(24, 158, 255)",
+                                  boxShadow:
+                                    "rgb(24, 158, 255) 0px 0px 0px 1px",
+                                }
+                              : {}
+                          }
+                          className={cx("location-control")}
+                        >
+                          <div className={cx("location-control-text")}>
+                            <div className={cx("location-control-value")}>
+                              {valueProvince
+                                ? valueProvince
+                                : "Vui lòng chọn tỉnh/thành phố"}
+                            </div>
+                            <div className="location-control-brick">
+                              <div style={{ display: "inline-block" }}>
+                                <input
+                                  style={
+                                    isOptionProvince
+                                      ? { opacity: "1" }
+                                      : { opacity: "0" }
+                                  }
+                                  className={cx("brick")}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className={cx("location-control-icon")}>
+                            <span className={cx("separator")}></span>
+                            <div className={cx("control-icon")}>
+                              <svg
+                                height="20"
+                                width="20"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                                focusable="false"
+                                className={cx("control-icon-svg")}
+                              >
+                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        {isOptionProvince && (
+                          <div ref={ref} className={cx("location-menu")}>
+                            <div className={cx("menu-wrapper")}>
+                              {province.map((item, index) => (
+                                <div
+                                  onClick={() => {
+                                    setValueProvince(item.name);
+                                    setIdProvince(item.id);
+                                    setOptionProvince(!isOptionProvince);
+                                  }}
+                                  key={index}
+                                  className={cx("menu-option")}
+                                >
+                                  {item.name}
+                                </div>
+                              ))}
+                              <div className={cx("no-value")}>
+                                Không có dữ liệu
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className={cx("row")}>
+                      <p className={cx("location-type")}>Quận/Huyện</p>
+                      <div className={cx("location-option")}>
+                        <div className={cx("location-control")}>
+                          <div className={cx("location-control-text")}>
+                            <div
+                              style={{ color: "rgb(153, 153, 153)" }}
+                              className={cx("location-control-value")}
+                            >
+                              {valueDistrict
+                                ? valueDistrict
+                                : "Vui lòng chọn quận/huyện"}
+                            </div>
+                            <div className="location-control-brick">
+                              <div style={{ display: "inline-block" }}>
+                                <input
+                                  style={{ opacity: "0" }}
+                                  className={cx("brick")}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className={cx("location-control-icon")}>
+                            <span className={cx("separator")}></span>
+                            <div
+                              onClick={() =>
+                                setOptionDistrict(!isOptionDistrict)
+                              }
+                              className={cx("control-icon")}
+                            >
+                              <svg
+                                height="20"
+                                width="20"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                                focusable="false"
+                                className={cx("control-icon-svg")}
+                              >
+                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        {isOptionDistrict && (
+                          <div ref={ref} className={cx("location-menu")}>
+                            <div className={cx("menu-wrapper")}>
+                              {district.map((item, index) => (
+                                <div
+                                  onClick={() => {
+                                    setValueDistrict(item.name);
+                                    setIdDistrict(item.id);
+                                    setOptionProvince(!isOptionDistrict);
+                                  }}
+                                  key={index}
+                                  className={cx("menu-option")}
+                                >
+                                  {item.name}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className={cx("row")}>
+                      <p className={cx("location-type")}>Phường/Xã</p>
+                      <div className={cx("location-option")}>
+                        <div className={cx("location-control")}>
+                          <div className={cx("location-control-text")}>
+                            <div
+                              style={{ color: "rgb(153, 153, 153)" }}
+                              className={cx("location-control-value")}
+                            >
+                              Vui lòng chọn phường xá/xã
+                            </div>
+                            <div className="location-control-brick">
+                              <div style={{ display: "inline-block" }}>
+                                <input
+                                  style={{ opacity: "0" }}
+                                  className={cx("brick")}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className={cx("location-control-icon")}>
+                            <span className={cx("separator")}></span>
+                            <div className={cx("control-icon")}>
+                              <svg
+                                height="20"
+                                width="20"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                                focusable="false"
+                                className={cx("control-icon-svg")}
+                              >
+                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className={cx("modal-location-footer")}>
+              <div
+                onClick={handleSaveLocation}
+                className={cx("modal-location-footer")}
+              >
                 <button className={cx("modal-location-picker-save")}>
                   GIAO ĐẾN ĐỊA CHỈ NÀY
                 </button>

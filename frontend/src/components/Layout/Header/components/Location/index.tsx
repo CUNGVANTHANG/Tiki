@@ -1,13 +1,28 @@
 import classNames from "classnames/bind";
 import styles from "./Location.module.scss";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { showModalLocation } from "~/redux/features/modal.slice";
+import { RootState } from "~/redux/store";
 
 const cx = classNames.bind(styles);
 
-const Loction = () => {
-  const [address, _] = useState("Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội");
+const Location = () => {
+  const [address, setAddress] = useState("Bạn vui lòng nhập địa chỉ giao hàng");
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      const savedAddress = localStorage.getItem("location");
+      if (savedAddress) {
+        const parts = savedAddress.split(",");
+        const ward = parts[0].trim().replace("Phường", "P. ");
+        const district = parts[1].trim().replace("Quận", "Q. ");
+        setAddress(`${district}, ${ward}, ${parts[2]}`);
+      }
+    }
+  }, [isLoggedIn]);
+
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
@@ -24,4 +39,4 @@ const Loction = () => {
   );
 };
 
-export default Loction;
+export default Location;

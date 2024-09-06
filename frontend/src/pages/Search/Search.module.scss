@@ -30,3 +30,12 @@
   grid-template-columns: repeat(4, calc(25% - 6px));
   padding-bottom: 16px;
 }
+
+.ads-image {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: contain;
+  display: block;
+}

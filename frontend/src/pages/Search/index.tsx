@@ -1,9 +1,9 @@
 import CustomFooter from "~/components/Layout/Footer";
 import classNames from "classnames/bind";
 import styles from "./Search.module.scss";
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "~/components/BreadCrumb";
 import { useLocation } from "react-router-dom";
-import Filter from "../components/Filter";
+import Filter from "~/components/Filter";
 import { ProductSearch } from "~/components/Product";
 
 const cx = classNames.bind(styles);
@@ -1148,7 +1148,18 @@ const Search = () => {
             </div>
           </div>
         </div>
-        <div className={cx("right-container")}></div>
+        <div className={cx("right-container")}>
+          <div>
+            <a>
+              <picture>
+                <img
+                  className={cx("ads-image")}
+                  src="https://salt.tikicdn.com/ts/tka/7f/a7/e7/68158a39a3cea74e0ea1408268fd85f4.png"
+                />
+              </picture>
+            </a>
+          </div>
+        </div>
       </div>
       <CustomFooter />
     </>
