@@ -6,11 +6,13 @@ import { RootState } from "~/redux/store/";
 import { showModalLogin } from "~/redux/features/modal.slice";
 import { logout } from "~/redux/features/auth.slice";
 import { auth } from "~/services/firebase";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 const Account = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const handleshowModalLogin = () => {
@@ -31,17 +33,17 @@ const Account = () => {
       <span>Tài khoản</span>
       {isLoggedIn && (
         <div className={cx("user-dropdown")}>
-          <a rel="nofollow" href="/">
+          <a onClick={() => navigate("/customer")} rel="nofollow">
             <p className={cx("item")} title="Thông tin tài khoản">
               Thông tin tài khoản
             </p>
           </a>
-          <a rel="nofollow" href="/">
+          <a rel="nofollow">
             <p className={cx("item")} title="Đơn hàng của tôi">
               Đơn hàng của tôi
             </p>
           </a>
-          <a rel="nofollow" href="/">
+          <a rel="nofollow">
             <p className={cx("item")} title="Thông tin tài khoản">
               Trung tâm hỗ trợ
             </p>

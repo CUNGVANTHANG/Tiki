@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Modal.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/redux/store/";
 import {
@@ -180,13 +180,49 @@ const ModalLocation = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const refProvince = useRef<HTMLDivElement>(null);
+  const refDictrict = useRef<HTMLDivElement>(null);
+  const refWard = useRef<HTMLDivElement>(null);
+  const svg = (
+    <svg
+      height="20"
+      width="20"
+      viewBox="0 0 20 20"
+      aria-hidden="true"
+      focusable="false"
+      className={cx("control-icon-svg")}
+    >
+      <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
+    </svg>
+  );
 
-  const handleClickOutside = (event: any) => {
-    if (ref.current && !ref.current.contains(event.target)) {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      refProvince.current &&
+      !refProvince.current.contains(event.target as Node)
+    ) {
       setOptionProvince(false);
     }
-  };
+
+    if (
+      refDictrict.current &&
+      !refDictrict.current.contains(event.target as Node)
+    ) {
+      setOptionDistrict(false);
+    }
+
+    if (refWard.current && !refWard.current.contains(event.target as Node)) {
+      setOptionWard(false);
+    }
+
+    if (
+      isVisible &&
+      modalRef.current &&
+      !modalRef.current.contains(event.target as Node)
+    ) {
+      handleOnClose();
+    }
+  }, []);
 
   const handleOnClose = () => {
     dispatch(hideModalLocation());
@@ -199,9 +235,16 @@ const ModalLocation = () => {
 
   const handleSaveLocation = () => {
     if (!isLoggedIn) {
-      const locationText = "Sẽ lưu";
+      let locationText = "";
+      if (valueWard && valueDistrict && valueProvince) {
+        locationText = `${valueWard}, ${valueDistrict}, ${valueProvince}`;
+      } else if (location) {
+        locationText = location;
+      }
       setLocation(locationText);
       localStorage.setItem("location", locationText);
+      handleOnClose();
+      window.location.reload();
     }
   };
 
@@ -211,22 +254,6 @@ const ModalLocation = () => {
       savedLocation && setLocation(savedLocation);
     }
   }, [isLoggedIn]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isVisible &&
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        handleOnClose();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isVisible]);
 
   useEffect(() => {
     const fetchProvince = async () => {
@@ -242,21 +269,19 @@ const ModalLocation = () => {
   }, []);
 
   useEffect(() => {
-    if (!idDistrict) return;
-    const debounceFetchWard = setTimeout(async () => {
+    const fetchWard = async () => {
       try {
         const ward = await getWard(idDistrict);
         setWard(ward);
       } catch (error) {
         console.error("Failed to fetch ward:", error);
       }
-    }, 300); // Adjust the delay as needed
+    };
 
-    return () => clearTimeout(debounceFetchWard);
-  }, [district]);
+    fetchWard();
+  }, [idDistrict]);
 
   useEffect(() => {
-    if (!idProvince) return;
     const fetchDistrict = async () => {
       try {
         const district = await getDistrict(idProvince);
@@ -267,7 +292,7 @@ const ModalLocation = () => {
     };
 
     fetchDistrict();
-  }, [province]);
+  }, [idProvince]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -293,14 +318,16 @@ const ModalLocation = () => {
                   Hãy chọn địa chỉ nhận hàng để được dự báo thời gian giao hàng
                   cùng phí đóng gói, vận chuyển một cách chính xác nhất.
                 </p>
-                <div className={cx("modal-location-login")}>
-                  <button onClick={handleOnLogin}>
-                    Đăng nhập để chọn địa chỉ giao hàng
-                  </button>
-                  <div>
-                    <p>hoặc</p>
+                {!isLoggedIn && (
+                  <div className={cx("modal-location-login")}>
+                    <button onClick={handleOnLogin}>
+                      Đăng nhập để chọn địa chỉ giao hàng
+                    </button>
+                    <div>
+                      <p>hoặc</p>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className={cx("modal-location-picker")}>
                   <button
                     onClick={() => {
@@ -353,7 +380,9 @@ const ModalLocation = () => {
                     <div className={cx("row")}>
                       <p className={cx("location-type")}>Tỉnh/Thành phố</p>
                       <div
-                        onClick={() => setOptionProvince(!isOptionProvince)}
+                        onClick={() => {
+                          setOptionProvince(!isOptionProvince);
+                        }}
                         className={cx("location-option")}
                       >
                         <div
@@ -374,7 +403,7 @@ const ModalLocation = () => {
                                 ? valueProvince
                                 : "Vui lòng chọn tỉnh/thành phố"}
                             </div>
-                            <div className="location-control-brick">
+                            <div className={cx("location-control-brick")}>
                               <div style={{ display: "inline-block" }}>
                                 <input
                                   style={
@@ -384,27 +413,20 @@ const ModalLocation = () => {
                                   }
                                   className={cx("brick")}
                                 />
+                                <div className={cx("brick-value")}></div>
                               </div>
                             </div>
                           </div>
                           <div className={cx("location-control-icon")}>
                             <span className={cx("separator")}></span>
-                            <div className={cx("control-icon")}>
-                              <svg
-                                height="20"
-                                width="20"
-                                viewBox="0 0 20 20"
-                                aria-hidden="true"
-                                focusable="false"
-                                className={cx("control-icon-svg")}
-                              >
-                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-                              </svg>
-                            </div>
+                            <div className={cx("control-icon")}>{svg}</div>
                           </div>
                         </div>
                         {isOptionProvince && (
-                          <div ref={ref} className={cx("location-menu")}>
+                          <div
+                            ref={refProvince}
+                            className={cx("location-menu")}
+                          >
                             <div className={cx("menu-wrapper")}>
                               {province.map((item, index) => (
                                 <div
@@ -419,9 +441,11 @@ const ModalLocation = () => {
                                   {item.name}
                                 </div>
                               ))}
-                              <div className={cx("no-value")}>
-                                Không có dữ liệu
-                              </div>
+                              {province.length === 0 && (
+                                <div className={cx("no-value")}>
+                                  Không có dữ liệu
+                                </div>
+                              )}
                             </div>
                           </div>
                         )}
@@ -429,11 +453,35 @@ const ModalLocation = () => {
                     </div>
                     <div className={cx("row")}>
                       <p className={cx("location-type")}>Quận/Huyện</p>
-                      <div className={cx("location-option")}>
-                        <div className={cx("location-control")}>
+                      <div
+                        onClick={() => setOptionDistrict(!isOptionDistrict)}
+                        style={!valueProvince ? { pointerEvents: "none" } : {}}
+                        className={cx("location-option")}
+                      >
+                        <div
+                          style={
+                            !valueProvince
+                              ? {
+                                  backgroundColor: "rgb(242, 242, 242)",
+                                  borderColor: "rgb(230, 230, 230)",
+                                }
+                              : {} && isOptionDistrict
+                              ? {
+                                  borderColor: "rgb(24, 158, 255)",
+                                  boxShadow:
+                                    "rgb(24, 158, 255) 0px 0px 0px 1px",
+                                }
+                              : {}
+                          }
+                          className={cx("location-control")}
+                        >
                           <div className={cx("location-control-text")}>
                             <div
-                              style={{ color: "rgb(153, 153, 153)" }}
+                              style={
+                                !valueProvince
+                                  ? { color: "rgb(153, 153, 153)" }
+                                  : {}
+                              }
                               className={cx("location-control-value")}
                             >
                               {valueDistrict
@@ -450,42 +498,41 @@ const ModalLocation = () => {
                             </div>
                           </div>
                           <div className={cx("location-control-icon")}>
-                            <span className={cx("separator")}></span>
-                            <div
-                              onClick={() =>
-                                setOptionDistrict(!isOptionDistrict)
+                            <span
+                              style={
+                                !valueProvince
+                                  ? { backgroundColor: "rgb(230, 230, 230)" }
+                                  : {}
                               }
-                              className={cx("control-icon")}
-                            >
-                              <svg
-                                height="20"
-                                width="20"
-                                viewBox="0 0 20 20"
-                                aria-hidden="true"
-                                focusable="false"
-                                className={cx("control-icon-svg")}
-                              >
-                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-                              </svg>
-                            </div>
+                              className={cx("separator")}
+                            ></span>
+                            <div className={cx("control-icon")}>{svg}</div>
                           </div>
                         </div>
                         {isOptionDistrict && (
-                          <div ref={ref} className={cx("location-menu")}>
+                          <div
+                            ref={refDictrict}
+                            className={cx("location-menu")}
+                          >
                             <div className={cx("menu-wrapper")}>
                               {district.map((item, index) => (
                                 <div
                                   onClick={() => {
-                                    setValueDistrict(item.name);
+                                    setValueDistrict(item.full_name);
                                     setIdDistrict(item.id);
-                                    setOptionProvince(!isOptionDistrict);
+                                    setOptionDistrict(!isOptionDistrict);
                                   }}
                                   key={index}
                                   className={cx("menu-option")}
                                 >
-                                  {item.name}
+                                  {item.full_name}
                                 </div>
                               ))}
+                              {district.length === 0 && (
+                                <div className={cx("no-value")}>
+                                  Không có dữ liệu
+                                </div>
+                              )}
                             </div>
                           </div>
                         )}
@@ -493,14 +540,40 @@ const ModalLocation = () => {
                     </div>
                     <div className={cx("row")}>
                       <p className={cx("location-type")}>Phường/Xã</p>
-                      <div className={cx("location-option")}>
-                        <div className={cx("location-control")}>
+                      <div
+                        onClick={() => setOptionWard(!isOptionWard)}
+                        style={!valueDistrict ? { pointerEvents: "none" } : {}}
+                        className={cx("location-option")}
+                      >
+                        <div
+                          style={
+                            !valueDistrict
+                              ? {
+                                  backgroundColor: "rgb(242, 242, 242)",
+                                  borderColor: "rgb(230, 230, 230)",
+                                }
+                              : {} && isOptionWard
+                              ? {
+                                  borderColor: "rgb(24, 158, 255)",
+                                  boxShadow:
+                                    "rgb(24, 158, 255) 0px 0px 0px 1px",
+                                }
+                              : {}
+                          }
+                          className={cx("location-control")}
+                        >
                           <div className={cx("location-control-text")}>
                             <div
-                              style={{ color: "rgb(153, 153, 153)" }}
+                              style={
+                                !valueDistrict
+                                  ? { color: "rgb(153, 153, 153)" }
+                                  : {}
+                              }
                               className={cx("location-control-value")}
                             >
-                              Vui lòng chọn phường xá/xã
+                              {valueWard
+                                ? valueWard
+                                : "Vui lòng chọn phường xá/xã"}
                             </div>
                             <div className="location-control-brick">
                               <div style={{ display: "inline-block" }}>
@@ -512,21 +585,40 @@ const ModalLocation = () => {
                             </div>
                           </div>
                           <div className={cx("location-control-icon")}>
-                            <span className={cx("separator")}></span>
-                            <div className={cx("control-icon")}>
-                              <svg
-                                height="20"
-                                width="20"
-                                viewBox="0 0 20 20"
-                                aria-hidden="true"
-                                focusable="false"
-                                className={cx("control-icon-svg")}
-                              >
-                                <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-                              </svg>
-                            </div>
+                            <span
+                              style={
+                                !valueDistrict
+                                  ? { backgroundColor: "rgb(230, 230, 230)" }
+                                  : {}
+                              }
+                              className={cx("separator")}
+                            ></span>
+                            <div className={cx("control-icon")}>{svg}</div>
                           </div>
                         </div>
+                        {isOptionWard && (
+                          <div ref={refWard} className={cx("location-menu")}>
+                            <div className={cx("menu-wrapper")}>
+                              {ward.map((item, index) => (
+                                <div
+                                  onClick={() => {
+                                    setValueWard(item.full_name);
+                                    setOptionWard(!isOptionWard);
+                                  }}
+                                  key={index}
+                                  className={cx("menu-option")}
+                                >
+                                  {item.full_name}
+                                </div>
+                              ))}
+                              {ward.length === 0 && (
+                                <div className={cx("no-value")}>
+                                  Không có dữ liệu
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

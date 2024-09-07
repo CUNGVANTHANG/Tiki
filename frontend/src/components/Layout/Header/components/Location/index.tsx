@@ -15,9 +15,15 @@ const Location = () => {
     if (!isLoggedIn) {
       const savedAddress = localStorage.getItem("location");
       if (savedAddress) {
-        const parts = savedAddress.split(",");
-        const ward = parts[0].trim().replace("Phường", "P. ");
-        const district = parts[1].trim().replace("Quận", "Q. ");
+        const parts = savedAddress?.split(",");
+        const ward = parts[0]?.trim().replace(/^(Phường|Xã)\s/, (match) => {
+          return match === "Phường " ? "P. " : "X. ";
+        });
+        const district = parts[1]
+          ?.trim()
+          .replace(/^(Quận|Huyện)\s/, (match) => {
+            return match === "Quận " ? "Q. " : "H. ";
+          });
         setAddress(`${district}, ${ward}, ${parts[2]}`);
       }
     }
