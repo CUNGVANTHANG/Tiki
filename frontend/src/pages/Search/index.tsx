@@ -5,6 +5,8 @@ import BreadCrumb from "~/components/BreadCrumb";
 import { useLocation } from "react-router-dom";
 import Filter from "~/components/Filter";
 import { ProductSearch } from "~/components/Product";
+import { useEffect, useState } from "react";
+import { getAllProductsByName } from "~/services/search";
 
 const cx = classNames.bind(styles);
 
@@ -1111,7 +1113,23 @@ const Search = () => {
   ];
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const paramValue = queryParams.get("q");
+  const paramValue = queryParams.get("q") || "";
+  const [products, setProducts] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const products = await getAllProductsByName(paramValue);
+        setProducts(products);
+        console.log("Fetched products:", products);
+      } catch (error) {
+        console.error("Error during form submission:", error);
+      }
+    };
+    if (paramValue) {
+      fetchData();
+    }
+  }, [paramValue]);
 
   return (
     <>
@@ -1121,30 +1139,57 @@ const Search = () => {
           <Filter filter={filter} />
           <div className={cx("products")}>
             <div className={cx("products-wrapper")}>
-              {dataFake.map((item, index) => {
-                if (index > 46) {
-                  return;
-                }
-                return (
-                  <ProductSearch
-                    key={index}
-                    thumbnail={item.thumbnail}
-                    ads={item.ads}
-                    frameBadge={item.frameBadge}
-                    price={item.price}
-                    discount={item.discount}
-                    name={item.name}
-                    provider={item.provider}
-                    stars={item.rating}
-                    sold={item.sold}
-                    textBox={item.textBox}
-                    promotion={item.promotion}
-                    deliveryInfo={item.deliveryInfo}
-                    carrier={item.carrier}
-                    textPromotion={item.textPromotion}
-                  />
-                );
-              })}
+              {products.length > 0
+                ? products.map((item: any, index: number) => {
+                    if (index > 46) {
+                      return;
+                    }
+                    console.log(item);
+
+                    return (
+                      <ProductSearch
+                        key={index}
+                        thumbnail={item.thumbnail}
+                        ads={item.ads}
+                        frameBadge={item.frameBadge}
+                        price={item.price}
+                        discount={item.discount}
+                        name={item.name}
+                        provider={item.provider}
+                        stars={item.rating}
+                        sold={item.sold}
+                        textBox={item.textBox}
+                        promotion={item.promotion}
+                        deliveryInfo={item.deliveryInfo}
+                        carrier={item.carrier}
+                        textPromotion={item.textPromotion}
+                      />
+                    );
+                  })
+                : dataFake.map((item, index) => {
+                    if (index > 46) {
+                      return;
+                    }
+                    return (
+                      <ProductSearch
+                        key={index}
+                        thumbnail={item.thumbnail}
+                        ads={item.ads}
+                        frameBadge={item.frameBadge}
+                        price={item.price}
+                        discount={item.discount}
+                        name={item.name}
+                        provider={item.provider}
+                        stars={item.rating}
+                        sold={item.sold}
+                        textBox={item.textBox}
+                        promotion={item.promotion}
+                        deliveryInfo={item.deliveryInfo}
+                        carrier={item.carrier}
+                        textPromotion={item.textPromotion}
+                      />
+                    );
+                  })}
             </div>
           </div>
         </div>

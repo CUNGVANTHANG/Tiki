@@ -38,11 +38,14 @@ export class CreateProductDto {
   carrier: string;
 
   @Expose()
-  type: string;
-
-  @Expose()
   quantity: number;
 
   @Expose()
   ads: boolean;
+
+  @Expose()
+  category: string;
+
+  @Expose()
+  flashSale: boolean;
 }

@@ -23,8 +23,8 @@ const Widgets = () => {
   const [brands, setBrands] = useState<any[]>([]);
   const banners = useSelector((state: RootState) => state.banners.items);
   const [isFlashsaleVisible, setIsFlashsaleVisible] = useState(true);
-  const startTime = new Date("2024-09-04T8:55:00");
-  const endTime = new Date("2024-09-04T18:00:00");
+  const startTime = new Date("2024-09-09T14:17:00");
+  const endTime = new Date("2024-09-09T18:00:00");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -66,17 +66,17 @@ const Widgets = () => {
     return () => clearInterval(intervalId);
   }, [endTime]);
 
-  const flashsale = products.filter((product) => product.type === "flashsale");
+  const flashsale = products.filter((product) => product.flashSale == 1);
   const topdeal = products.filter(
-    (product) => product.type === "product" && product.discount >= 10
+    (product) => product.discount >= 10 && product.flashSale != 1
   );
   const hotprice = products.filter(
-    (product) => product.type === "product" && product.origin
+    (product) => product.origin && product.flashSale != 1
   );
   const maylike = products.filter(
-    (product) => product.type === "product" && product.price < 1000000
+    (product) => product.price < 1000000 && product.flashSale != 1
   );
-  const suggest = products.filter((product) => product.type === "product");
+  const suggest = products.filter((product) => product.flashSale != 1);
 
   return (
     <div className={cx("widgets")}>

@@ -15,8 +15,6 @@ const initialState: BannerState = {
 
 export const fetchBanners = createAsyncThunk("banners/fetchAll", async () => {
   const banners = await getAllBanners();
-
-  console.log(banners);
   return banners;
 });
 

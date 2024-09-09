@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BrandEntity } from 'src/brands/entities/brand.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
@@ -42,11 +51,14 @@ export class ProductEntity {
   carrier: string;
 
   @Column()
-  type: string;
-
-  @Column()
   quantity: number;
 
   @Column('boolean')
   ads: boolean;
+
+  @Column('boolean')
+  flashSale: boolean;
+
+  @Column()
+  category: string;
 }

@@ -5,7 +5,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCPK3NA07XlBlIHn4IQLlJPeJ-pA16oDuE",
+  apiKey: process.env.FIREBASE_KEY,
   authDomain: "tiki-b4b1c.firebaseapp.com",
   projectId: "tiki-b4b1c",
   storageBucket: "tiki-b4b1c.appspot.com",

@@ -940,7 +940,7 @@ const CustomFooter = () => {
         </div>
       </div>
       <div className={cx("separator")}></div>
-      <div className={cx("details")}>
+      <div className={location.pathname === "/" ? cx("details") : ""}>
         <div
           className={cx(
             "wrap-details",

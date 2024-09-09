@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from '../entities/product.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { plainToInstance } from 'class-transformer';
 
@@ -19,13 +19,17 @@ export class ProductsService {
     });
   }
 
-  async find() {}
-
   async update() {}
 
   async delete() {}
 
-  async findAll() {
+  async getAll() {
     return await this.productsRepository.find();
+  }
+
+  async getAllByName(name: string) {
+    return await this.productsRepository.find({
+      where: { name: ILike(`%${name}%`) },
+    });
   }
 }

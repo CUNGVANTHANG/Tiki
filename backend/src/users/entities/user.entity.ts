@@ -37,4 +37,10 @@ export class UserEntity {
 
   @Column()
   password: string;
+
+  @Column()
+  facebookId: string;
+
+  @Column()
+  googleId: string;
 }
