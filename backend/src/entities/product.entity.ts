@@ -1,4 +1,3 @@
-import { BrandEntity } from 'src/brands/entities/brand.entity';
 import {
   Column,
   Entity,

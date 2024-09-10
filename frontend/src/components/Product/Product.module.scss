@@ -415,6 +415,11 @@
   > * {
     width: 100%;
   }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
+    z-index: 1;
+  }
 }
 
 .item2 {
@@ -485,6 +490,9 @@
 }
 
 .version2-textbadge {
+  background: rgb(217, 56, 67);
+  color: rgb(255, 240, 241);
+  border: 1px solid rgb(255, 255, 255);
   height: 20px;
   padding: 2px 4px;
   gap: 0px;

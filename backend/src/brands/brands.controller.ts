@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { BrandsService } from './services/brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
-import { BrandEntity } from './entities/brand.entity';
+import { BrandEntity } from '../entities/brand.entity';
 
 @Controller('brands')
 export class BrandsController {

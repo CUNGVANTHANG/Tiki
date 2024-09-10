@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 import Filter from "~/components/Filter";
 import { ProductSearch } from "~/components/Product";
 import { useEffect, useState } from "react";
-import { getAllProductsByName } from "~/services/search";
+import { getAllProductsByName } from "~/services/products";
+import { AdsType_1, AdsType_2, AdsType_3 } from "~/components/Ads";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,7 @@ const dataFake = [
     provider: "SAMSUNG",
     name: "Điện thoại AI Samsung Galaxy S24 Ultra 12GB/256GB, Camera 200MP Zoom 100x, S Pen- Xám- Hàng Chính Hãng",
     rating: 5,
+    textBadge: "9.9",
     sold: 856,
     textBox: ["3 Màu", "1 Kích cỡ"],
     promotion: "",
@@ -1152,6 +1154,7 @@ const Search = () => {
                         thumbnail={item.thumbnail}
                         ads={item.ads}
                         frameBadge={item.frameBadge}
+                        textBadge={item.textBadge}
                         price={item.price}
                         discount={item.discount}
                         name={item.name}
@@ -1179,6 +1182,7 @@ const Search = () => {
                         price={item.price}
                         discount={item.discount}
                         name={item.name}
+                        textBadge={item.textBadge}
                         provider={item.provider}
                         stars={item.rating}
                         sold={item.sold}
@@ -1191,20 +1195,82 @@ const Search = () => {
                     );
                   })}
             </div>
+            <div className={cx("pagination-wrapper")}>
+              <div className={cx("pagination-block")}>
+                <div>
+                  <a className={cx("arrow", "disabled")}>
+                    <picture style={{ lineHeight: 0 }}>
+                      <img
+                        src="	https://salt.tikicdn.com/ts/upload/65/08/c2/b59e26d5d9421026628efbd19144159a.png"
+                        alt="arrow-left"
+                      />
+                    </picture>
+                  </a>
+                </div>
+                <ul>
+                  <li>
+                    <a className={cx("current")}>1</a>
+                  </li>
+                  <li>
+                    <a>2</a>
+                  </li>
+                  <li>
+                    <a>3</a>
+                  </li>
+                  <li>
+                    <a>4</a>
+                  </li>
+                  <li>
+                    <a>5</a>
+                  </li>
+                  <li>
+                    <a className={cx("hidden-page")}>
+                      <img
+                        src="	https://salt.tikicdn.com/ts/brickv2og/c5/f9/d0/b4e49aa9576a35e347fbdeec0df9e350.png"
+                        alt="hidden-page"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a>50</a>
+                  </li>
+                </ul>
+                <div>
+                  <a className={cx("arrow")}>
+                    <picture style={{ lineHeight: 0 }}>
+                      <img
+                        src="https://salt.tikicdn.com/ts/upload/5b/86/17/6c9551f367089bcd8a75640872fb3559.png"
+                        alt="arrow-right"
+                      />
+                    </picture>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={cx("right-container")}>
-          <div>
-            <a>
-              <picture>
-                <img
-                  className={cx("ads-image")}
-                  src="https://salt.tikicdn.com/ts/tka/7f/a7/e7/68158a39a3cea74e0ea1408268fd85f4.png"
-                />
-              </picture>
-            </a>
-          </div>
+          <AdsType_1 image="https://salt.tikicdn.com/ts/tka/7f/a7/e7/68158a39a3cea74e0ea1408268fd85f4.png" />
+          <AdsType_2
+            name="Điện thoại Samsung Galaxy Z Fold6, 512GB, điện thoại AI, màn hình cực đại 7.6, mỏng nhẹ nhất - Hàng chính hãng - Xanh Navy"
+            image="https://salt.tikicdn.com/cache/280x280/ts/product/56/70/a6/e08b592083a5642ffe5d1242734a2a31.png.webp"
+            seller="Tiki Trading"
+            price="41000000"
+          />
+          <AdsType_2
+            name="Điện thoại Samsung Galaxy Z Fold6, 256GB, điện thoại AI, màn hình cực đại 7.6, mỏng nhẹ nhất - Hàng chính hãng - Hồng Đào"
+            image="https://salt.tikicdn.com/cache/280x280/ts/product/49/62/1b/45cffd8517eec573775f07503102cf03.jpg.webp"
+            seller="Tiki Trading"
+            price="41000000"
+            discount="8"
+            numberRating="5"
+            sold="856"
+          />
         </div>
+      </div>
+      <div className={cx("listing-grid")}>
+        <AdsType_3 image="https://salt.tikicdn.com/ts/tka/32/6f/30/8baedd6fb6046ffc0b0ad13587be9b9a.png" />
+        <AdsType_3 image="https://salt.tikicdn.com/ts/tka/ee/c2/7f/3eee93e81abb380c7ff75a8fa3eaae79.jpg" />
       </div>
       <CustomFooter />
     </>

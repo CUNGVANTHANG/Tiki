@@ -213,7 +213,14 @@ const Search = () => {
             <div className={cx("suggestion")}>
               {suggestions.map((suggestion, index) =>
                 index < 3 || showSuggestions || inputValue ? (
-                  <a key={index} className={cx("suggestion-item")}>
+                  <a
+                    onClick={() => {
+                      navigate(`/search?q=${encodeURIComponent(suggestion)}`);
+                      handleHideSearch();
+                    }}
+                    key={index}
+                    className={cx("suggestion-item")}
+                  >
                     <img
                       className={cx("item-icon")}
                       src="../images/suggestion.png"

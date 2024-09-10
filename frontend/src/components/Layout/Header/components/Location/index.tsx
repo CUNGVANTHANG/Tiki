@@ -16,13 +16,35 @@ const Location = () => {
       const savedAddress = localStorage.getItem("location");
       if (savedAddress) {
         const parts = savedAddress?.split(",");
-        const ward = parts[0]?.trim().replace(/^(Phường|Xã)\s/, (match) => {
-          return match === "Phường " ? "P. " : "X. ";
-        });
+        const ward = parts[0]
+          ?.trim()
+          .replace(/^(Phường|Xã|Thị trấn)\s/, (match) => {
+            switch (match.trim()) {
+              case "Phường":
+                return "P. ";
+              case "Xã":
+                return "X. ";
+              case "Thị trấn":
+                return "TT. ";
+              default:
+                return match;
+            }
+          });
         const district = parts[1]
           ?.trim()
-          .replace(/^(Quận|Huyện)\s/, (match) => {
-            return match === "Quận " ? "Q. " : "H. ";
+          .replace(/^(Quận|Huyện|Thị xã|Thành phố)\s/, (match) => {
+            switch (match.trim()) {
+              case "Quận":
+                return "Q. ";
+              case "Huyện":
+                return "H. ";
+              case "Thị xã":
+                return "TX. ";
+              case "Thành phố":
+                return "TP. ";
+              default:
+                return match;
+            }
           });
         setAddress(`${district}, ${ward}, ${parts[2]}`);
       }

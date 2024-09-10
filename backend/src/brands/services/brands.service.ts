@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BrandEntity } from '../entities/brand.entity';
+import { BrandEntity } from '../../entities/brand.entity';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { CreateBrandDto } from '../dto/create-brand.dto';

@@ -209,9 +209,11 @@ const ProductVersion2 = (props: any) => {
                     </div>
                   </div>
                   {props.ads && <p className={cx("version2-ads")}>AD</p>}
-                  <div className={cx("version2-textbadge")}>
-                    {props.textBadge}
-                  </div>
+                  {props.textBadge && (
+                    <div className={cx("version2-textbadge")}>
+                      {props.textBadge}
+                    </div>
+                  )}
                   {props.frameBadge && (
                     <div className={cx("version2-framebadge")}>
                       <picture>

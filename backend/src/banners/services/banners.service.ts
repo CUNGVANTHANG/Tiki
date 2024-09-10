@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BannerEntity } from '../entities/banner.entity';
+import { BannerEntity } from '../../entities/banner.entity';
 import { Repository } from 'typeorm';
 import { CreateBannerDto } from '../dto/create-banner.dto';
 import { plainToInstance } from 'class-transformer';

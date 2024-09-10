@@ -44,27 +44,27 @@ const AdsPopup = (props: any) => {
   );
 };
 
-const ViewMorePopup = (props: any) => {
-  const [isVisible, setIsVisible] = useState(props.isVisible);
+// const ViewMorePopup = (props: any) => {
+//   const [isVisible, setIsVisible] = useState(props.isVisible);
 
-  return (
-    isVisible && (
-      <div id={"popup-root"}>
-        <div className={cx("popup-content")}>
-          <div className={cx("data-list")}>
-            {props.data.map((item: any, index: number) => {
-              item.options.map((option: string, index: number) => (
-                <button>
-                  <div>{option}</div>
-                </button>
-              ));
-            })}
-          </div>
-          <div className={cx("bottom-bar")}></div>
-        </div>
-      </div>
-    )
-  );
-};
+//   return (
+//     isVisible && (
+//       <div id={"popup-root"}>
+//         <div className={cx("popup-content")}>
+//           <div className={cx("data-list")}>
+//             {props.data.map((item: any, index: number) => {
+//               item.options.map((option: string, index: number) => (
+//                 <button>
+//                   <div>{option}</div>
+//                 </button>
+//               ));
+//             })}
+//           </div>
+//           <div className={cx("bottom-bar")}></div>
+//         </div>
+//       </div>
+//     )
+//   );
+// };
 
 export { AdsPopup };

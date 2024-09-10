@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Filter.module.scss";
-import React from "react";
+import React, { useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +24,15 @@ const carrier = [
 
 const Filter = (props: any) => {
   const numberStar = 5;
+  const [checkedItems, setCheckedItems] = useState(
+    Array(carrier.length).fill(false)
+  );
+  const [isCheckStar, setIsCheckStar] = useState(false);
+  const handleCheck = (index: number) => {
+    const updatedCheckedItems = [...checkedItems];
+    updatedCheckedItems[index] = !updatedCheckedItems[index];
+    setCheckedItems(updatedCheckedItems);
+  };
   return (
     <div className={cx("filters")}>
       <div className={cx("wrap-filter")}>
@@ -51,7 +60,7 @@ const Filter = (props: any) => {
                           );
                         }
                       })}
-                      <button className={cx("view-more")}>
+                      <button onClick={() => {}} className={cx("view-more")}>
                         <img
                           src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
                           alt="arrow icon"
@@ -104,59 +113,88 @@ const Filter = (props: any) => {
               style={{ transform: "translateX(0px)" }}
               className={cx("content")}
             >
-              {carrier.map((item, index) => (
-                <React.Fragment key={index}>
-                  <div className={cx("filter-checkbox")}>
-                    <div className={cx("checkbox")}>
-                      <span className={cx("box")}>
-                        <img
-                          className={cx("check-on")}
-                          src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                          alt="check-on"
-                        />
-                        <img
-                          className={cx("check-off")}
-                          src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                          alt="check-off"
-                        />
-                        <img
-                          className={cx("check-hover")}
-                          src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                          alt="check-hover"
-                        />
-                      </span>
+              {carrier.map((item, index) => {
+                const isCheck = checkedItems[index];
+                return (
+                  <React.Fragment key={index}>
+                    <div className={cx("filter-checkbox")}>
+                      <div className={cx("checkbox")}>
+                        <span className={cx("box")}>
+                          <img
+                            onClick={() => handleCheck(index)}
+                            style={
+                              isCheck
+                                ? { display: "block" }
+                                : { display: "none" }
+                            }
+                            className={cx("check-on")}
+                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                            alt="check-on"
+                          />
+                          {!isCheck && (
+                            <img
+                              className={cx("check-off")}
+                              src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                              alt="check-off"
+                            />
+                          )}
+
+                          {!isCheck && (
+                            <img
+                              onClick={() => handleCheck(index)}
+                              className={cx("check-hover")}
+                              src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                              alt="check-hover"
+                            />
+                          )}
+                        </span>
+                      </div>
+                      <img
+                        height={index === 0 ? "17" : "16"}
+                        className={cx("carrier-image")}
+                        src={item.carrierImage}
+                        alt="carrier"
+                      />
+                      <div className={cx("carrier-text")}>
+                        <span>{item.carrierText}</span>
+                      </div>
                     </div>
-                    <img
-                      height={index === 0 ? "17" : "16"}
-                      className={cx("carrier-image")}
-                      src={item.carrierImage}
-                      alt="carrier"
-                    />
-                    <div className={cx("carrier-text")}>
-                      <span>{item.carrierText}</span>
-                    </div>
-                  </div>
-                  <div style={{ height: 24 }} className={cx("divider")}></div>
-                </React.Fragment>
-              ))}
+                    <div style={{ height: 24 }} className={cx("divider")}></div>
+                  </React.Fragment>
+                );
+              })}
               <div className={cx("filter-checkbox")}>
                 <div className={cx("checkbox")}>
                   <span className={cx("box")}>
                     <img
+                      onClick={() => {
+                        setIsCheckStar(!isCheckStar);
+                      }}
+                      style={
+                        isCheckStar ? { display: "block" } : { display: "none" }
+                      }
                       className={cx("check-on")}
                       src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
                       alt="check-on"
                     />
-                    <img
-                      className={cx("check-off")}
-                      src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                      alt="check-off"
-                    />
-                    <img
-                      className={cx("check-hover")}
-                      src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                      alt="check-hover"
-                    />
+                    {!isCheckStar && (
+                      <img
+                        className={cx("check-off")}
+                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                        alt="check-off"
+                      />
+                    )}
+
+                    {!isCheckStar && (
+                      <img
+                        onClick={() => {
+                          setIsCheckStar(!isCheckStar);
+                        }}
+                        className={cx("check-hover")}
+                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                        alt="check-hover"
+                      />
+                    )}
                   </span>
                 </div>
                 <div className={cx("stars")}>

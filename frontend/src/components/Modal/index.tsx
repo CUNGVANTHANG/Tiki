@@ -256,6 +256,8 @@ const ModalLocation = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    setValueDistrict("");
+    setValueWard("");
     const fetchProvince = async () => {
       try {
         const province = await getProvince();
@@ -266,7 +268,7 @@ const ModalLocation = () => {
     };
 
     fetchProvince();
-  }, []);
+  }, [idProvince]);
 
   useEffect(() => {
     const fetchWard = async () => {
@@ -282,6 +284,7 @@ const ModalLocation = () => {
   }, [idDistrict]);
 
   useEffect(() => {
+    setValueWard("");
     const fetchDistrict = async () => {
       try {
         const district = await getDistrict(idProvince);
@@ -292,7 +295,7 @@ const ModalLocation = () => {
     };
 
     fetchDistrict();
-  }, [idProvince]);
+  }, [idProvince, idDistrict]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

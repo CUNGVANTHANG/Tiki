@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductEntity } from '../entities/product.entity';
+import { ProductEntity } from '../../entities/product.entity';
 import { ILike, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { plainToInstance } from 'class-transformer';
